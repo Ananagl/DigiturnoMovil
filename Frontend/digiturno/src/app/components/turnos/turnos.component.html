@@ -1,0 +1,23 @@
+<div class="flex flex-col h-full p-6">
+  <!-- Sección Llamado -->
+  <div class="mb-6">
+    <h2 class="font-open-sans text-2xl text-grisClaro">Llamado</h2>
+    <div class="bg-gradient-morado text-white text-center font-manrope font-bold rounded-2xl p-8 shadow-lg" *ngIf="turnoActual">
+      <div class="text-white text-6xl font-bold mb-2">{{turnoActual.codigo}}</div>
+      <div class="text-white text-4xl font-bold">{{turnoActual.nombre}}</div>
+    </div>
+  </div>
+  <!-- Sección Siguientes -->
+  <div>
+    <h2 class=" font-open-sans text-2xl text-grisClaro mb-4">Siguientes</h2>
+    <div class="flex flex-col gap-4">
+      <!-- Turnos siguientes -->
+      <div *ngFor="let turno of turnosSiguientes" 
+           class="bg-gradient-morado font-bold text-center font-manrope text-white rounded-2xl p-4 shadow-lg">
+        <div class="text-xl">
+          <span class="font-bold">{{turno.codigo}}</span> | {{turno.nombre}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
