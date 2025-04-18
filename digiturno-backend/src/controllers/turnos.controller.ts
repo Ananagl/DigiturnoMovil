@@ -42,3 +42,27 @@ export const registrarTurno = (req: Request, res: Response) => {
     }
   );
 };
+
+
+//si tuviera fe
+//de un granito
+//de mostaza
+//eso dice el señor
+//si tuveras fe
+//de un granito
+//de mostaza
+//eso dice el señor
+
+export const verificarTurnoExistente = (req: Request, res: Response) => {
+  const numero_documento = req.params.documento;
+
+  db.query(
+    'SELECT COUNT(*) AS total FROM turnos WHERE numero_documento = ?',
+    [numero_documento],
+    (err, results: any) => {
+      if (err) return res.status(500).json({ error: err.message });
+      const existe = results[0].total > 0;
+      res.json({ existe });
+    }
+  );
+};
