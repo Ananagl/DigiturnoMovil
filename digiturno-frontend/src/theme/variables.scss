@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
+
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
 
@@ -11,5 +13,5 @@ $usco-rosa: #DEBEE3;
 $usco-rosa-linear: linear-gradient(90deg, #DEBEE3 0%, #694E6D 100%);
 $usco-violeta: #8C2D99;
 
-// Fuente principal
-$font-family-open-sans: 'Open Sans', Arial, Helvetica, sans-serif;
+// Fuente primaria
+$font-family-primary: 'Open Sans', Arial, Helvetica, sans-serif;
