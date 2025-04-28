@@ -1,0 +1,30 @@
+.arrow-nav {
+  position: fixed;
+  bottom: 2rem;
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  z-index: 1000;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(102, 27, 112, 0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.2s;
+}
+.arrow-nav.left {
+  left: 6rem;
+  bottom: 4rem;
+}
+.arrow-nav.right {
+  right: 6rem;
+  bottom: 4rem;
+}
+.arrow-nav img {
+  width: 50px;
+  height: 50px;
+}
+.arrow-nav:hover {
+  box-shadow: 0 4px 16px rgba(102, 27, 112, 0.18);
+}

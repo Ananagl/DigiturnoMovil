@@ -7,7 +7,8 @@
   background: #661B70;
   padding: 0.5rem 1rem;
   width: 100vw;
-  min-height: 80px;
+  height: auto;
+  max-height: 120px;
 }   
 
 .logo-usco {
@@ -34,10 +35,11 @@
 .titulo {
   color: #fff;
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 900;
   margin-left: auto;
   letter-spacing: 0.05em;
   text-align: right;
+  font-weight: bold;
 }
 
 @media (max-width: 600px) {

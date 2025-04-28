@@ -1,0 +1,29 @@
+<app-banner-global></app-banner-global>
+<div class="nuevo-turno-container">
+  <form class="nuevo-turno-form">
+    <div class="form-group">
+      <label for="tipo-id"><b>Tipo de identificación</b></label>
+      <select id="tipo-id" class="form-control">
+        <option value="">Seleccionar</option>
+        <option value="cc">Cédula de ciudadanía</option>
+        <option value="ti">Tarjeta de identidad</option>
+        <option value="ce">Cédula de extranjería</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="numero-doc"><b>Numero de documento</b></label>
+      <input id="numero-doc" class="form-control" type="text" placeholder="Ingresar numero"   maxlength="15" (input)="onInputNumber($event)"/>
+    </div>
+  </form>
+</div>
+<app-arrow-nav
+  direction="left"
+  route="/home"
+  icon="assets/icon/flechaizquierda.png"
+></app-arrow-nav>
+
+<app-arrow-nav
+  direction="right"
+  route="/siguiente-pagina"
+  icon="assets/icon/flechaderecha.png"
+></app-arrow-nav>

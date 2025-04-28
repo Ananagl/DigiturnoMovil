@@ -8,9 +8,16 @@
  * For more information on global stylesheets, visit the documentation:
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
+@use './theme/variables.scss';
+@import '@ionic/angular/css/palettes/dark.system.css';
+
+$font-family-primary: 'Open Sans', Arial, Helvetica, sans-serif;
+
+body, html {
+  font-family: $font-family-primary;
+}
 
 /* Core CSS required for Ionic components to work properly */
-@import "@ionic/angular/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
 @import "@ionic/angular/css/normalize.css";
@@ -34,4 +41,3 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';

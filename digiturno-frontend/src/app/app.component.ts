@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
-import { BannerGlobalComponent } from './app/components/banner-global/banner-global.component';
+import { IonApp } from '@ionic/angular/standalone';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  imports: [IonApp, BannerGlobalComponent],
+  imports: [IonApp, RouterOutlet],
 })
 export class AppComponent {
   constructor() {}

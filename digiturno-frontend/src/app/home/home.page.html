@@ -1,20 +1,19 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content [fullscreen]="true" class="home-content">
+  <app-banner-global></app-banner-global>
+  <div class="home-container">
+    <div class="home-container-display"></div>
+    <div class="home-actions">
+      <button class="home-btn nuevo-turno" (click)="goToNuevoTurno()">
+        <img src="assets/icon/newturno.png" alt="Icono turno nuevo"  class="icono-img"/>
+        Nuevo turno
+      </button>
+      <button class="home-btn lista-turnos">
+        <img src="assets/icon/listturno.png" alt="Icono lista de turnos"  class="icono-img"/>
+        Lista de turnos
+      </button>
+    </div>
+    <div class="home-image">
+      <img src="assets/images/espera.png" alt="Sala de espera consultorio jurídico"  />
+    </div>
   </div>
 </ion-content>
