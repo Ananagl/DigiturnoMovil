@@ -13,10 +13,13 @@ export class ArrowNavComponent {
   @Input() direction: 'left' | 'right' = 'left';
   @Input() route: string = '/';
   @Input() icon: string = '';
+  @Input() disabled: boolean = false;
 
   constructor(private router: Router) {}
 
   navigate() {
-    this.router.navigate([this.route]);
+    if (!this.disabled) {
+      this.router.navigate([this.route]);
+    }
   }
 }

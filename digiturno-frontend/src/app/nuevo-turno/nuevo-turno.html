@@ -3,7 +3,7 @@
   <form class="nuevo-turno-form">
     <div class="form-group">
       <label for="tipo-id"><b>Tipo de identificación</b></label>
-      <select id="tipo-id" class="form-control">
+      <select id="tipo-id" class="form-control" [(ngModel)]="tipoId" name="tipoId">
         <option value="">Seleccionar</option>
         <option value="cc">Cédula de ciudadanía</option>
         <option value="ti">Tarjeta de identidad</option>
@@ -12,10 +12,21 @@
     </div>
     <div class="form-group">
       <label for="numero-doc"><b>Numero de documento</b></label>
-      <input id="numero-doc" class="form-control" type="text" placeholder="Ingresar numero"   maxlength="15" (input)="onInputNumber($event)"/>
+      <input
+        id="numero-doc"
+        class="form-control"
+        type="text"
+        placeholder="Ingresar numero"
+        maxlength="15"
+        autocomplete="off"
+        (input)="onInputNumber($event)"
+        [(ngModel)]="numeroDoc"
+        name="numeroDoc"
+      />
     </div>
   </form>
 </div>
+
 <app-arrow-nav
   direction="left"
   route="/home"
@@ -24,6 +35,7 @@
 
 <app-arrow-nav
   direction="right"
-  route="/siguiente-pagina"
+  route="/nuevo-turno-2"
   icon="assets/icon/flechaderecha.png"
+  [disabled]="isNextDisabled()"
 ></app-arrow-nav>

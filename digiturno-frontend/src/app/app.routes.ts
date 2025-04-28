@@ -10,6 +10,10 @@ export const routes: Routes = [
     loadComponent: () => import('./nuevo-turno/nuevo-turno').then((m) => m.NuevoTurnoComponent),
   },
   {
+    path: 'nuevo-turno-2',
+    loadComponent: () => import('./nuevo-turno-2/nuevo-turno-2').then((m) => m.NuevoTurno2Component),
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',

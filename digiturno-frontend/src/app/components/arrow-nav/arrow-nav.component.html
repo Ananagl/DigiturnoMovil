@@ -1,6 +1,6 @@
 <div
   class="arrow-nav"
-  [ngClass]="direction"
+  [ngClass]="[direction, disabled ? 'disabled' : '']"
   (click)="navigate()"
 >
   <img [src]="icon" [alt]="direction + ' arrow'" />

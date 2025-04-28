@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms'; 
 import { BannerGlobalComponent } from '../components/banner-global/banner-global.component';
 import { ArrowNavComponent } from '../components/arrow-nav/arrow-nav.component';
 
@@ -6,24 +7,21 @@ import { ArrowNavComponent } from '../components/arrow-nav/arrow-nav.component';
   selector: 'app-nuevo-turno',
   templateUrl: './nuevo-turno.html',
   styleUrls: ['./nuevo-turno.scss'],
-  imports: [BannerGlobalComponent, ArrowNavComponent],
+  standalone: true,
+  imports: [FormsModule, BannerGlobalComponent, ArrowNavComponent], 
 })
-
-export class NuevoTurnoComponent  implements OnInit {
+export class NuevoTurnoComponent {
+  tipoId: string = '';
+  numeroDoc: string = '';
 
   onInputNumber(event: any) {
-    let value = event.target.value;
-    // Elimina cualquier caracter que no sea número
-    value = value.replace(/[^0-9]/g, '');
-    // Limita a 15 dígitos
-    if (value.length > 15) {
-      value = value.slice(0, 15);
-    }
+    let value = event.target.value.replace(/[^0-9]/g, '');
+    if (value.length > 15) value = value.slice(0, 15);
+    this.numeroDoc = value;
     event.target.value = value;
   }
 
-  constructor() { }
-
-  ngOnInit() {}
-
+  isNextDisabled(): boolean {
+    return !this.tipoId || !this.numeroDoc || this.numeroDoc.length === 0;
+  }
 }

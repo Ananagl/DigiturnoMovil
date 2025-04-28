@@ -1,0 +1,20 @@
+<app-banner-global></app-banner-global>
+<div class="nuevo-turno-container">
+  <form class="nuevo-turno-form">
+    <div class="form-group">
+      <label for="nombres"><b>ingrese su(s) nombre(s)</b></label>
+      <input id="nombres" class="form-control" type="text" placeholder="Ingrese su(s) nombres(s)" maxlength="50"
+        name="nombres" [(ngModel)]="nombres" (input)="onInputNombre($event)" autocomplete="off"/>
+    </div>
+    <div class="form-group">
+      <label for="apellidos"><b>ingrese su(s) apellido(s)</b></label>
+      <input id="apellidos" class="form-control" type="text" placeholder="Ingrese su(s) apellido(s)" maxlength="50"
+        name="apellidos" [(ngModel)]="apellidos" (input)="onInputApellido($event)" autocomplete="off"/>
+    </div>
+  </form>
+</div>
+
+<app-arrow-nav direction="left" route="/nuevo-turno" icon="assets/icon/flechaizquierda.png"></app-arrow-nav>
+
+<app-arrow-nav direction="right" route="/siguiente-pagina" icon="assets/icon/flechaderecha.png"
+  [disabled]="isNextDisabled()"></app-arrow-nav>
