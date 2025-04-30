@@ -1,0 +1,53 @@
+<ion-content [fullscreen]="true" class="home-content">
+  <app-banner-global></app-banner-global>
+  <div class="home-container">
+    <div class="home-actions">
+      <div class="form-group">
+        <label><b>Tipo de turno</b></label>
+        
+        <div class="turnos-container">
+          <!-- Lista de tipos de turno principal -->
+          <div class="buttons-list1" [class.shifted]="mostrandoSubtipos">
+            <button 
+              *ngFor="let tipo of tiposTurno"
+              class="home-btn1"
+              [class.selected]="tipo === tipoSeleccionado"
+              (click)="seleccionarTipo(tipo)">
+              <img [src]="getIconPath(tipo.icono)" alt="icono" class="icono-img"/>
+              <span>{{ tipo.nombre }}</span>
+            </button>
+          </div>
+
+          <!-- Lista de subtipos -->
+          <div class="subtipos-list" 
+               [class.visible]="mostrandoSubtipos"
+               [attr.data-tipo]="tipoSeleccionado?.nombre?.toLowerCase()">
+            <button 
+              *ngFor="let subtipo of subtiposActuales"
+              class="home-btn"
+              [class.selected]="subtipo === subtipoSeleccionado"
+              (click)="seleccionarSubtipo(subtipo.id)">
+              <img [src]="getIconPath(subtipo.icono)" alt="icono" class="icono-img"/>
+              <span>{{ subtipo.nombre }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<!-- Flechas de navegación -->
+<app-arrow-nav 
+  direction="left" 
+  route="/nuevo-turno-2" 
+  icon="assets/icon/flechaizquierda.png">
+</app-arrow-nav>
+
+<app-arrow-nav 
+  direction="right" 
+  route="/siguiente-ruta"
+  icon="assets/icon/flechaderecha.png"
+  [disabled]="!puedeAvanzar()">
+</app-arrow-nav>
+
