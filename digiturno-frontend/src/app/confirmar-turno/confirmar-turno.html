@@ -1,22 +1,51 @@
-<ion-content class="ion-padding">
+<ion-content class="ion-padding confirmar-container">
   <app-banner-global></app-banner-global>
 
-  <div *ngIf="!resultado && !error">
-    <h2>Confirma tus datos</h2>
-    <pre>{{ datos | json }}</pre>
+  <ng-container *ngIf="!resultado && !error">
+    <h2>Revisa y guarda tus datos</h2>
+    <ion-card class="datos-card">
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label><strong>Tipo de documento</strong></ion-label>
+            <ion-text>{{ datos.tipo_documento }}</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label><strong>Número de documento</strong></ion-label>
+            <ion-text>{{ datos.numero_documento }}</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label><strong>Nombres</strong></ion-label>
+            <ion-text>{{ datos.nombres }}</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label><strong>Apellidos</strong></ion-label>
+            <ion-text>{{ datos.apellidos }}</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label><strong>Tipo de turno</strong></ion-label>
+            <ion-text>{{ tipoNombre }}</ion-text>
+          </ion-item>
+          <ion-item *ngIf="datos.subtipo_turno_id !== null">
+            <ion-label><strong>Subtipo de turno</strong></ion-label>
+            <ion-text>{{ subtipoNombre }}</ion-text>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
 
     <ion-button expand="block" (click)="confirmar()" [disabled]="cargando">
-      {{ cargando ? 'Enviando…' : 'Confirmar Turno' }}
+      {{ cargando ? 'Guardando…' : 'Guardar Turno' }}
     </ion-button>
-  </div>
+  </ng-container>
 
-  <div *ngIf="resultado">
+  <div *ngIf="resultado" class="resultado-card">
     <h2>¡Turno guardado!</h2>
     <p>ID: {{ resultado.id }}</p>
     <p>Mensaje: {{ resultado.message }}</p>
   </div>
 
-  <div *ngIf="error">
+  <div *ngIf="error" class="error-card">
     <h2>Error al guardar</h2>
     <p>{{ error }}</p>
   </div>
