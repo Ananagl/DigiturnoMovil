@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms'; 
 import { BannerGlobalComponent } from '../components/banner-global/banner-global.component';
 import { ArrowNavComponent } from '../components/arrow-nav/arrow-nav.component';
+import { TurnoStateService } from '../services/turno.service';
 
 @Component({
   selector: 'app-nuevo-turno',
@@ -14,13 +15,19 @@ export class NuevoTurnoComponent {
   tipoId: string = '';
   numeroDoc: string = '';
 
+  constructor(private turnoState: TurnoStateService) {}
+
+  guardarDocumento() {
+    this.turnoState.setDocumento(this.tipoId, this.numeroDoc);
+  }
+
   onInputNumber(event: any) {
     let value = event.target.value.replace(/[^0-9]/g, '');
     if (value.length > 15) value = value.slice(0, 15);
     this.numeroDoc = value;
     event.target.value = value;
   }
-
+  
   isNextDisabled(): boolean {
     return !this.tipoId || !this.numeroDoc || this.numeroDoc.length === 0;
   }

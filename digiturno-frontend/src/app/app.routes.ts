@@ -15,7 +15,11 @@ export const routes: Routes = [
   },
   {
     path: 'seleccion-turno',
-    loadComponent: () => import('./pages/seleccion-turno/seleccion-turno.page').then(m => m.SeleccionTurnoPage)
+    loadComponent: () => import('./seleccion-turno/seleccion-turno').then((m)=> m.SeleccionTurnoPage)
+  },
+  { 
+    path: 'confirmar-turno', 
+    loadComponent: () => import('./confirmar-turno/confirmar-turno').then((m)=> m.ConfirmarTurnoComponent)
   },
   {
     path: '',

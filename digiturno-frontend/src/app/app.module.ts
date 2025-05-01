@@ -4,7 +4,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SeleccionTurnoComponent } from './pages/seleccion-turno/seleccion-turno.component';
+import { SeleccionTurnoComponent } from './seleccion-turno/seleccion-turno.component';
 import { CommonModule } from '@angular/common';
 
 @NgModule({

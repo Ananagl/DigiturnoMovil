@@ -14,7 +14,16 @@
   </form>
 </div>
 
-<app-arrow-nav direction="left" route="/nuevo-turno" icon="assets/icon/flechaizquierda.png"></app-arrow-nav>
+<app-arrow-nav
+ direction="left" 
+ route="/nuevo-turno" 
+ icon="assets/icon/flechaizquierda.png">
+</app-arrow-nav>
 
-<app-arrow-nav direction="right" route="/seleccion-turno" icon="assets/icon/flechaderecha.png"
-  [disabled]="isNextDisabled()"></app-arrow-nav>
+<app-arrow-nav
+direction="right" 
+route="/seleccion-turno" 
+icon="assets/icon/flechaderecha.png"
+(beforeNavigate)="guardarNombresApellidos()"
+[disabled]="isNextDisabled()">
+</app-arrow-nav>

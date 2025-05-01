@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { BannerGlobalComponent } from '../../components/banner-global/banner-global.component';
-import { ArrowNavComponent } from '../../components/arrow-nav/arrow-nav.component';
-import { TipoTurno, SubTipoTurno, TIPOS_TURNO, SUBTIPOS_TURNO } from '../../interfaces/turno.interface';
+import { BannerGlobalComponent } from '../components/banner-global/banner-global.component';
+import { ArrowNavComponent } from '../components/arrow-nav/arrow-nav.component';
+import { TipoTurno, SubTipoTurno, TIPOS_TURNO, SUBTIPOS_TURNO } from '../interfaces/turno.interface';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { TurnoStateService } from 'src/app/services/turno.service';
 
 @Component({
   selector: 'app-seleccion-turno',
@@ -27,7 +28,9 @@ export class SeleccionTurnoPage {
   tipoSeleccionado?: TipoTurno;
   subtipoSeleccionado?: SubTipoTurno;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private turnoState: TurnoStateService ) {}
 
   // Método para verificar si se puede continuar
   puedeAvanzar(): boolean {
@@ -72,9 +75,9 @@ export class SeleccionTurnoPage {
     return `assets/icon/${iconName}.svg`;
   }
 
-  private continuarRegistro(turnoId: number) {
-    this.router.navigate(['/siguiente-ruta'], { 
-      queryParams: { turnoId: turnoId }
-    });
+  guardarSeleccion() {
+    const tipoId = this.tipoSeleccionado!.id;
+    const subtipoId = this.subtipoSeleccionado?.id ?? null;
+    this.turnoState.setTipoTurno(tipoId, subtipoId);
   }
 } 

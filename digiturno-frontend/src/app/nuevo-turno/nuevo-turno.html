@@ -38,4 +38,5 @@
   route="/nuevo-turno-2"
   icon="assets/icon/flechaderecha.png"
   [disabled]="isNextDisabled()"
+  (beforeNavigate)="guardarDocumento()"
 ></app-arrow-nav>

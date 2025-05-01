@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { SeleccionTurnoComponent } from './pages/seleccion-turno/seleccion-turno.component';
+import { SeleccionTurnoPage } from './seleccion-turno/seleccion-turno';
 
 const routes: Routes = [
   {
@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'seleccion-turno',
-    component: SeleccionTurnoComponent
+    component: SeleccionTurnoPage
   }
 ];
 

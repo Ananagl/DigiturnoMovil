@@ -1,0 +1,23 @@
+<ion-content class="ion-padding">
+  <app-banner-global></app-banner-global>
+
+  <div *ngIf="!resultado && !error">
+    <h2>Confirma tus datos</h2>
+    <pre>{{ datos | json }}</pre>
+
+    <ion-button expand="block" (click)="confirmar()" [disabled]="cargando">
+      {{ cargando ? 'Enviando…' : 'Confirmar Turno' }}
+    </ion-button>
+  </div>
+
+  <div *ngIf="resultado">
+    <h2>¡Turno guardado!</h2>
+    <p>ID: {{ resultado.id }}</p>
+    <p>Mensaje: {{ resultado.message }}</p>
+  </div>
+
+  <div *ngIf="error">
+    <h2>Error al guardar</h2>
+    <p>{{ error }}</p>
+  </div>
+</ion-content>

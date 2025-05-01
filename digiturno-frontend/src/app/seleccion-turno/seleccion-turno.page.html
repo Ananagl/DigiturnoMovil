@@ -46,8 +46,9 @@
 
 <app-arrow-nav 
   direction="right" 
-  route="/siguiente-ruta"
+  route="/confirmar-turno"
   icon="assets/icon/flechaderecha.png"
+  (beforeNavigate)="guardarSeleccion()"
   [disabled]="!puedeAvanzar()">
 </app-arrow-nav>
 

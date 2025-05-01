@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { SeleccionTurnoPage } from './seleccion-turno.page';
-import { BannerGlobalComponent } from '../../components/banner-global/banner-global.component';
-import { ArrowNavComponent } from '../../components/arrow-nav/arrow-nav.component';
+import { SeleccionTurnoPage } from './seleccion-turno';
+import { BannerGlobalComponent } from '../components/banner-global/banner-global.component';
+import { ArrowNavComponent } from '../components/arrow-nav/arrow-nav.component';
 
-describe('SeleccionTurnoPage', () => {
+describe('SeleccionTurno', () => {
   let component: SeleccionTurnoPage;
   let fixture: ComponentFixture<SeleccionTurnoPage>;
 

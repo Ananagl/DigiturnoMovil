@@ -9,6 +9,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/turnos', turnosRoutes);
+app.use('/turnos', turnosRoutes);
 
 export default app;
