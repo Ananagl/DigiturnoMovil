@@ -1,74 +1,50 @@
 <ion-content class="ion-padding confirmar-container">
   <app-banner-global></app-banner-global>
 
-  <!-- Paso de confirmación: antes de enviar -->
-  <ng-container *ngIf="!resultado && !error">
-    <h2>Confirmar la información</h2>
+  <h2>Confirmar la información</h2>
 
-    <ion-grid class="resumen-grid">
-      <ion-row>
-        <!-- columna 1: Nombres, Apellidos, Tipo de turno -->
-        <ion-col size="6" class="col-vertical">
-          <div class="item">
-            <ion-label><strong>Nombres</strong></ion-label>
-            <p>{{ datos.nombres }}</p>
-          </div>
-          <div class="item">
-            <ion-label><strong>Apellidos</strong></ion-label>
-            <p>{{ datos.apellidos }}</p>
-          </div>
-          <div class="item">
-            <ion-label><strong>Tipo de turno</strong></ion-label>
-            <p>{{ tipoNombre }}</p>
-          </div>
-        </ion-col>
+  <ion-grid class="resumen-grid">
+    <ion-row>
+      <ion-col size="6" class="col-vertical">
+        <div class="item">
+          <ion-label><strong>Nombres</strong></ion-label>
+          <p>{{ datos.nombres }}</p>
+        </div>
+        <div class="item">
+          <ion-label><strong>Apellidos</strong></ion-label>
+          <p>{{ datos.apellidos }}</p>
+        </div>
+        <div class="item">
+          <ion-label><strong>Tipo de turno</strong></ion-label>
+          <p>{{ tipoNombre }}</p>
+        </div>
+      </ion-col>
+      <ion-col size="6" class="col-vertical">
+        <div class="item">
+          <ion-label><strong>Tipo de documento</strong></ion-label>
+          <p>{{ datos.tipo_documento }}</p>
+        </div>
+        <div class="item">
+          <ion-label><strong>Número de documento</strong></ion-label>
+          <p>{{ datos.numero_documento }}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-        <!-- columna 2: Tipo de documento, Número de documento -->
-        <ion-col size="6" class="col-vertical">
-          <div class="item">
-            <ion-label><strong>Tipo de documento</strong></ion-label>
-            <p>{{ datos.tipo_documento }}</p>
-          </div>
-          <div class="item">
-            <ion-label><strong>Número de documento</strong></ion-label>
-            <p>{{ datos.numero_documento }}</p>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
-    
-    <div class="botones-acciones">
-      <ion-button
-        class="accion-btn"
-        (click)="confirmar()"
-        [disabled]="cargando"
-      >
-        {{ cargando ? 'Guardando…' : 'Confirmar turno' }}
-      </ion-button>
-      <ion-button
-        class="accion-btn"
-        (click)="cancelar()"
-      >
-        Cancelar
-      </ion-button>
-    </div>
-  </ng-container>
-
-  <!-- Resultado exitoso -->
-  <ion-card *ngIf="resultado" class="resultado-card">
-    <ion-card-header><ion-card-title>¡Turno guardado!</ion-card-title></ion-card-header>
-    <ion-card-content>
-      <p>ID: {{ resultado.id }}</p>
-      <p>Mensaje: {{ resultado.message }}</p>
-    </ion-card-content>
-  </ion-card>
-
-  <!-- Error al guardar -->
-  <ion-card *ngIf="error" class="error-card">
-    <ion-card-header><ion-card-title>Error al guardar</ion-card-title></ion-card-header>
-    <ion-card-content>
-      <p>{{ error }}</p>
-    </ion-card-content>
-  </ion-card>
+  <div class="botones-acciones">
+    <ion-button
+      class="accion-btn"
+      (click)="confirmar()"
+      [disabled]="cargando"
+    >
+      {{ cargando ? 'Guardando…' : 'Confirmar turno' }}
+    </ion-button>
+    <ion-button
+      class="accion-btn"
+      (click)="cancelar()"
+    >
+      Cancelar
+    </ion-button>
+  </div>
 </ion-content>
