@@ -1,0 +1,32 @@
+<ion-content class="ion-padding confirmar-container">
+  <app-banner-global></app-banner-global>
+
+  <ng-container *ngIf="resultado">
+    <ion-card class="resultado-card">
+      <ion-card-header>
+        <ion-card-title>¡Turno guardado!</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>ID:</strong> {{ resultado.id }}</p>
+        <p><strong>Mensaje:</strong> {{ resultado.message }}</p>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <ng-container *ngIf="error">
+    <ion-card class="error-card">
+      <ion-card-header>
+        <ion-card-title>Error al guardar</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{ error }}</p>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <div class="boton-volver">
+    <ion-button expand="block" (click)="reiniciar()">
+      Volver al inicio
+    </ion-button>
+  </div>
+</ion-content>

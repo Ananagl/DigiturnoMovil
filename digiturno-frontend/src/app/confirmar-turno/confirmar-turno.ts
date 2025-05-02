@@ -5,7 +5,7 @@ import { BannerGlobalComponent } from '../components/banner-global/banner-global
 import { TurnoStateService, TurnoData } from '../services/turno.service';
 import { TurnoApiService } from '../services/turno-api.service';
 import { TipoTurno, SubTipoTurno, TIPOS_TURNO, SUBTIPOS_TURNO } from '../interfaces/turno.interface';
-
+import { Router } from '@angular/router';  
 @Component({
   selector: 'app-confirmar-turno',
   templateUrl: './confirmar-turno.html',
@@ -23,7 +23,8 @@ export class ConfirmarTurnoComponent implements OnInit {
 
   constructor(
     private turnoState: TurnoStateService,
-    private turnoApi: TurnoApiService
+    private turnoApi: TurnoApiService,
+    private router: Router  
   ) {}
 
   ngOnInit() {
@@ -37,17 +38,26 @@ export class ConfirmarTurnoComponent implements OnInit {
 
   confirmar() {
     this.cargando = true;
-    this.error = null;
-
-    this.turnoApi.crear(this.datos).subscribe(
-      res => {
-        this.resultado = res;
-        this.cargando = false;
+    this.error    = null;
+  
+    this.turnoApi.crear(this.datos).subscribe({
+      next: (res) => {
+        // navegamos al resultado con el objeto
+        this.router.navigate(['/turno-resultado'], {
+          state: { resultado: res }
+        });
       },
-      err => {
-        this.error = err.error?.error || err.message || 'Error al guardar turno';
-        this.cargando = false;
+      error: (err) => {
+        const errMsg = err.error?.error || err.message || 'Error al guardar turno';
+        // navegamos al mismo componente de resultado pero con error
+        this.router.navigate(['/turno-resultado'], {
+          state: { error: errMsg }
+        });
       }
-    );
+    });
+  }
+  cancelar() {
+    // navega de vuelta al inicio
+    this.router.navigate(['/home']);
   }
 }

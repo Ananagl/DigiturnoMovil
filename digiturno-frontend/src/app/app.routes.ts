@@ -21,6 +21,10 @@ export const routes: Routes = [
     path: 'confirmar-turno', 
     loadComponent: () => import('./confirmar-turno/confirmar-turno').then((m)=> m.ConfirmarTurnoComponent)
   },
+  { 
+    path: 'turno-resultado', 
+    loadComponent: () => import('./turno-resultado/turno-resultado').then((m)=> m.TurnoResultadoComponent)
+  },
   {
     path: '',
     redirectTo: 'home',
