@@ -11,6 +11,12 @@ interface CrearResponse {
 interface ExisteResponse {
   existe: boolean;
 }
+export interface TurnoListado {
+  nombres: string;
+  apellidos: string;
+  tipo_turno: string;
+  fecha_creacion: string; // ISO string
+}
 
 @Injectable({ providedIn: 'root' })
 export class TurnoApiService {
@@ -25,4 +31,15 @@ export class TurnoApiService {
   crear(turno: TurnoData): Observable<CrearResponse> {
     return this.http.post<CrearResponse>(this.base, turno);
   }
+  obtenerPersona(tipo: string, numero: string) {
+    return this.http.get<{ nombres: string; apellidos: string }>(
+      `${this.base}/datos/${tipo}/${numero}`
+    );
+  }
+  listarAsignados(dias: number = 14): Observable<TurnoListado[]> {
+    return this.http.get<TurnoListado[]>(
+      `${this.base}/asignados?dias=${dias}`
+    );
+  }
 }
+

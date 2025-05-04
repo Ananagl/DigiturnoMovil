@@ -1,20 +1,18 @@
 import { Router } from 'express';
 import {
-  obtenerTiposTurno,
-  obtenerSubtiposPorTipo,
+  obtenerPersonaPorDocumento,
   registrarTurno,
   verificarTurnoExistente,
   obtenerTurnosAsignados,
-  obtenerEstadisticasTurnos
 } from '../controllers/turnos.controller';
 
 const router = Router();
 
-router.get('/tipos', obtenerTiposTurno);
-router.get('/subtipos/:id', obtenerSubtiposPorTipo);
+
+
 router.get('/asignados', obtenerTurnosAsignados);
-router.get('/estadisticas', obtenerEstadisticasTurnos);
+router.get('/datos/:tipo/:numero', obtenerPersonaPorDocumento); //solicitado por la doc
 router.post('/', registrarTurno);
-router.get('/turno-existe/:documento', verificarTurnoExistente); //googogogog
+router.get('/turno-existe/:documento', verificarTurnoExistente); //googogogog este endpoint seria para que en teoria?
 
 export default router;

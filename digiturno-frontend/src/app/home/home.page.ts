@@ -15,4 +15,7 @@ export class HomePage {
   goToNuevoTurno() {
     this.router.navigate(['/nuevo-turno']);
   }
+  gotolistarturno(){
+    this.router.navigate(['/lista-turnos']);
+  }
 }

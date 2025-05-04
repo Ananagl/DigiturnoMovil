@@ -4,13 +4,13 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SeleccionTurnoComponent } from './seleccion-turno/seleccion-turno.component';
+import { SeleccionTurnoPage } from './seleccion-turno/seleccion-turno';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SeleccionTurnoComponent
+    SeleccionTurnoPage
   ],
   imports: [
     BrowserModule,

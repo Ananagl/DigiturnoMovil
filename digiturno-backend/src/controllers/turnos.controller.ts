@@ -41,7 +41,7 @@ export const registrarTurno = async (req: Request, res: Response) => {
   }
 };
 
-// Verificar si ya existe un turno con el documento
+// Verificar si ya existe un turno con el documento??? adaptar este endopoint pra hacer llamados de legalapp o de otras formas?????
 export const verificarTurnoExistente = async (req: Request, res: Response) => {
   try {
     const numeroDocumento = req.params.documento;
@@ -53,24 +53,35 @@ export const verificarTurnoExistente = async (req: Request, res: Response) => {
   }
 };
 
-// Obtener todos los turnos asignados
-export const obtenerTurnosAsignados = async (_req: Request, res: Response) => {
+// Obtener todos los turnos asignados este seria para el de listar turnos????
+export const obtenerTurnosAsignados = async (req: Request, res: Response) => {
   try {
-    const turnos = await TurnoModel.listarTurnosAsignados();
+    // Leer query param 'dias', o usar 14
+    const dias = parseInt(req.query.dias as string, 10) || 14;
+    // Fecha límite = hoy - dias
+    const fechaLimite = new Date();
+    fechaLimite.setDate(fechaLimite.getDate() - dias);
+
+    const turnos = await TurnoModel.listarTurnosPorFecha(fechaLimite);
     res.json(turnos);
   } catch (err) {
-    const error = err as Error;
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: (err as Error).message });
   }
 };
 
-// Obtener cantidad de personas registradas por tipo de turno
-export const obtenerEstadisticasTurnos = async (_req: Request, res: Response) => {
+
+
+// Nuevo endpoint Requerimiento doctora obtener datos de persona por documento
+export const obtenerPersonaPorDocumento = async (req: Request, res: Response) => {
   try {
-    const estadisticas = await TurnoModel.obtenerEstadisticas();
-    res.json(estadisticas);
+    const { tipo, numero } = req.params;
+    const persona = await TurnoModel.buscarPorDocumento(tipo, numero);
+    if (persona) {
+      res.json(persona);
+    } else {
+      res.status(204).send(); // No Content si no se encuentra
+    }
   } catch (err) {
-    const error = err as Error;
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: (err as Error).message });
   }
 };
