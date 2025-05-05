@@ -2,16 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { TurnoApiService, TurnoListado } from '../services/turno-api.service';
-import { DatePipe } from '@angular/common';
-
+import { BannerGlobalComponent } from '../components/banner-global/banner-global.component';
 @Component({
   selector: 'app-lista-turnos',
   standalone: true,
-  imports: [CommonModule, IonicModule, DatePipe],
+  imports: [CommonModule, IonicModule,  BannerGlobalComponent],
   templateUrl: './lista-turnos.html',
   styleUrls: ['./lista-turnos.scss'],
 })
-export class ListaTurnoscomponent implements OnInit {
+export class ListaTurnosComponent implements OnInit {
   turnos: TurnoListado[] = [];
   cargando = false;
 

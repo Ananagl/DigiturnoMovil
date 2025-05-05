@@ -23,7 +23,7 @@ export const routes: Routes = [
   },
   {
     path: 'lista-turnos',
-    loadComponent: () => import('./lista-turnos/lista-turnos').then((m) => m.ListaTurnoscomponent),
+    loadComponent: () => import('./lista-turnos/lista-turnos').then((m)=> m.ListaTurnosComponent),
   },
   {
     path: '',
