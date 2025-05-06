@@ -1,9 +1,3 @@
-:host {
-  display: block;
-  height: 100%;
-  position: relative;
-}
-
 ion-content {
   --padding-top: 0;
   --padding-bottom: 0;
@@ -31,13 +25,13 @@ ion-content {
 h2 {
   margin-top: 1rem;
   text-align: center;
-  color: #000000;
-  font-size: 2.5rem;
-  font-weight: 700;
+  color: #100e0e;
+  font-size: 2.8rem;
+  font-weight: 600;
 }
 
 .resumen-grid {
-  margin: 4.8rem 0;
+  margin: 6.2rem 0;
   --ion-grid-column-gap: 0.5rem;
   --ion-grid-padding: 0;
 
@@ -51,6 +45,9 @@ h2 {
     flex-direction: column;
     gap: 0.8rem;
 
+    .col-ajustada {
+      margin-left: 10rem; // Puedes ajustar el valor
+    }
     .item {
       display: flex;
       flex-direction: column;
@@ -89,38 +86,12 @@ h2 {
   }
 }
 
-.custom-alert {
-  .alert-icon {
-    text-align: center;
-    margin-bottom: 1rem;
 
-    img {
-      width: 80px;
-      height: auto;
-      display: inline-block;
-    }
-  }
-
-  .alert-text {
-    text-align: center;
-    font-size: 1.6rem;
-    color: #333;
-  }
-
-  /* ya tenías esto: */
-  .alert-head,
-  .alert-sub-header {
-    text-align: center;
-  }
-  .alert-button-group {
-    justify-content: center;
-  }
-}
 
 .resultado-card,
 .error-card {
   margin: 1.5rem;
-  --ion-background: #fff;
+  --ion-background: #ffffff;
   box-shadow: 0 4px 16px rgba(102, 27, 112, 0.05);
 }
 

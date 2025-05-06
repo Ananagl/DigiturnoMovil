@@ -1,0 +1,61 @@
+:host {
+  --background: #fff;
+}
+
+::ng-deep ion-content {
+  --background: #fff !important; // ← fuerza fondo blanco
+  background-color: #fff !important;
+  color: #000;
+}
+
+.alerta-turno {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  background-color: #fff;
+  color: #000;
+  
+
+  .alert-text {
+    margin-top: 1rem;
+
+    h2 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #000;
+    }
+
+    p {
+      font-size: 1.8rem;
+      color: #333;
+    }
+  }
+
+  .alert-icon {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 150px;
+      height: auto;
+      margin: 1rem 0;
+    }
+  }
+
+  ion-button {
+    margin-bottom: 2rem;
+    min-width: 200px;
+    align-self: center; 
+    --background: linear-gradient(90deg, #B272BC 0%, #661B70 100%);
+    --color: #fff;
+    font-weight: 700;
+    font-size: 1.6rem;
+    border-radius: 16px;
+  }
+}

@@ -13,6 +13,6 @@ const router = Router();
 router.get('/asignados', obtenerTurnosAsignados);
 router.get('/datos/:tipo/:numero', obtenerPersonaPorDocumento); //solicitado por la doc
 router.post('/', registrarTurno);
-router.get('/turno-existe/:documento', verificarTurnoExistente); //googogogog este endpoint seria para que en teoria?
+router.get('/turno-existe/:documento', verificarTurnoExistente); 
 
 export default router;

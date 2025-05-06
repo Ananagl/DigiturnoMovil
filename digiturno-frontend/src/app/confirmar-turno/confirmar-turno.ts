@@ -6,7 +6,8 @@ import { TurnoStateService, TurnoData } from '../services/turno.service';
 import { TurnoApiService } from '../services/turno-api.service';
 import { TIPOS_TURNO, SUBTIPOS_TURNO } from '../interfaces/turno.interface';
 import { Router } from '@angular/router';  
-import { DomSanitizer } from '@angular/platform-browser';
+import { ModalController } from '@ionic/angular';
+import { AlertaTurnoComponent } from '../components/alerta-turno/alerta-turno.component';
 
 @Component({
   selector: 'app-confirmar-turno',
@@ -26,7 +27,7 @@ export class ConfirmarTurnoComponent implements OnInit {
     private turnoState: TurnoStateService,
     private turnoApi: TurnoApiService,
     private alertCtrl: AlertController,
-    private sanitizer: DomSanitizer,
+    private modalCtrl: ModalController,
     private router: Router  
   ) {}
 
@@ -56,40 +57,21 @@ export class ConfirmarTurnoComponent implements OnInit {
     });
   }
 
-  cancelar() {
-    this.router.navigate(['/home']);
+  async cerrar() {  
+    await this.router.navigate(['/home']);
   }
 
-  private async presentResultAlert(
-    success: boolean,
-    messageHtml: string = ''
-  ) {
-    const iconSrc = success
-      ? '/assets/icon/ACEPTADO.svg'
-      : '/assets/icon/CANCELADO.svg';
 
-    const html = `
-      <div class="alert-icon">
-        <img
-          src="${iconSrc}"
-          alt="${success ? 'Aceptado' : 'Cancelado'}"
-          onerror="this.style.display='none'"
-        />
-      </div>
-      <div class="alert-text">${messageHtml}</div>
-    `;
-
-    const safeHtml = this.sanitizer.bypassSecurityTrustHtml(html);
-
-    const alert = await this.alertCtrl.create({
-      header: success ? '✅ Turno asignado' : '❌ Turno denegado',
-      message: safeHtml as any,
-      cssClass: 'custom-alert',
-      backdropDismiss: false,
-      buttons: [
-        { text: 'Ir al inicio', handler: () => this.router.navigate(['/home']) }
-      ]
+  private async presentResultAlert(success: boolean, message: string) {
+    const modal = await this.modalCtrl.create({
+      component: AlertaTurnoComponent,
+      cssClass: 'custom-modal',
+      componentProps: {
+        success,
+        message
+      },
     });
-    await alert.present();
+  
+    await modal.present();
   }
 }

@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { TurnoModel } from '../models/turnoModel';
 import { TipoTurnoModel } from '../models/tipoTurnoModel';
 import { ValidationError } from '../utils/validations';
+import logger from '../utils/logger';
 
 // Obtener tipos de turno
 export const obtenerTiposTurno = async (_req: Request, res: Response) => {

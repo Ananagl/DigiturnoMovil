@@ -1,11 +1,10 @@
+<app-banner-global></app-banner-global>
 <ion-content class="ion-padding confirmar-container">
-  <app-banner-global></app-banner-global>
-
   <h2>Confirmar la información</h2>
 
   <ion-grid class="resumen-grid">
     <ion-row>
-      <ion-col size="6" class="col-vertical">
+      <ion-col size="6" class="col-vertical col-ajustada">
         <div class="item">
           <ion-label><strong>Nombres</strong></ion-label>
           <p>{{ datos.nombres }}</p>
@@ -42,7 +41,7 @@
     </ion-button>
     <ion-button
       class="accion-btn"
-      (click)="cancelar()"
+      (click)="cerrar()"
     >
       Cancelar
     </ion-button>

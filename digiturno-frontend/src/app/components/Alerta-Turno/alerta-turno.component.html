@@ -1,0 +1,12 @@
+<ion-content class="alerta-turno ion-padding">
+  <div class="alert-text">
+    <h2>{{ success ? 'Turno asignado' : 'Turno denegado' }}</h2>
+    <p [innerHTML]="message"></p>
+  </div>
+
+  <div class="alert-icon">
+    <img [src]="iconSrc" alt="Resultado" />
+  </div>
+
+  <ion-button expand="block" (click)="cerrar()">IR AL INICIO</ion-button>
+</ion-content>
