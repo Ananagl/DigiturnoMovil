@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { TurnoApiService, TurnoListado } from '../services/turno-api.service';
 import { BannerGlobalComponent } from '../components/banner-global/banner-global.component';
+import { ArrowNavComponent } from '../components/arrow-nav/arrow-nav.component';
+
 @Component({
   selector: 'app-lista-turnos',
   standalone: true,
-  imports: [CommonModule, IonicModule,  BannerGlobalComponent],
+  imports: [CommonModule, IonicModule,  BannerGlobalComponent, ArrowNavComponent],
   templateUrl: './lista-turnos.html',
   styleUrls: ['./lista-turnos.scss'],
 })

@@ -1,20 +1,14 @@
 <app-banner-global></app-banner-global> 
+<div class="lista-turno-container">
     <h2>Lista de turnos</h2>
+  </div>
   
-    <ion-list *ngIf="!cargando; else loading">
-      <ion-item *ngFor="let turno of turnos">
-        <ion-label>
-          <h2>{{ turno.nombres }} {{ turno.apellidos }}</h2>
-          <p>{{ turno.tipo_turno }} — {{ turno.fecha_creacion | date:'shortTime' }}</p>
-        </ion-label>
-      </ion-item>
-      <ion-item *ngIf="turnos.length === 0">
-        <ion-label>No hay turnos en las últimas 2 semanas</ion-label>
-      </ion-item>
-    </ion-list>
-  
-    <ng-template #loading>
-      <ion-spinner name="crescent"></ion-spinner>
-    </ng-template>
+<app-arrow-nav
+direction="left"
+route="/home"
+icon="assets/icon/flechaizquierda.png"
+></app-arrow-nav>
+
+
  
   

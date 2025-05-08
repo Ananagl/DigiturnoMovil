@@ -1,18 +1,4 @@
-ion-content {
-  --padding-top: 0;
-  --padding-bottom: 0;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-}
-
-
-/* ============================= */
-/*  Confirmar Turno Container    */
-/* ============================= */
-.confirmar-container {
-  --background: #fff;
+.nuevo-turno-container {
   width: 100%;
   height: 90%;
   display: flex;
@@ -20,50 +6,46 @@ ion-content {
   align-items: center;
   justify-content: center;
   min-height: 80vh;
+  background: #fff;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #000000;
+  }
 }
 
-h2 {
-  margin-top: 1rem;
-  text-align: center;
-  color: #100e0e;
-  font-size: 2.8rem;
-  font-weight: 600;
+.nuevo-turno-form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); // tres columnas
+  grid-template-rows: repeat(2, auto);  // dos filas automáticas
+  gap: 2rem; // espacio horizontal y vertical
+  
+
+  .form-group:nth-child(1) { grid-column: 1; grid-row: 1; } // Nombres
+  .form-group:nth-child(2) { grid-column: 2; grid-row: 1; } // Apellidos
+  .form-group:nth-child(3) { grid-column: 1; grid-row: 3  ; } // Tipo de turno
+
+  .form-group:nth-child(4) { grid-column: 1; grid-row: 2; } // Tipo de documento
+  .form-group:nth-child(5) { grid-column: 2; grid-row: 2; } // Número de documento
+  
+  
+  p.form-control {
+    background: #f5f5f5;
+    border: none;
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    font-size: 1.2rem;
+    color: #333;
+    box-shadow: 0 2px 8px rgba(102, 27, 112, 0.05);
+    margin: 0;
+  }
 }
-
-.resumen-grid {
-  margin: 6.2rem 0;
-  --ion-grid-column-gap: 0.5rem;
-  --ion-grid-padding: 0;
-
-  ion-col {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .col-vertical {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-
-    .col-ajustada {
-      margin-left: 10rem; // Puedes ajustar el valor
-    }
-    .item {
-      display: flex;
-      flex-direction: column;
-
-      ion-label strong {
-        font-size: 2.2rem;
-        color: #000;
-        margin-bottom: 0.25rem;
-      }
-      p {
-        font-size: 1.8rem;
-        color: #656363;
-        margin: 0;
-      }
-    }
-  }
+label {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #111;
 }
 
 .botones-acciones {
@@ -77,24 +59,18 @@ h2 {
     flex: 1;
     min-height: 4rem;
     font-size: 2rem;
-    --padding-top: 1rem;
-    --padding-bottom: 1rem;
-    --border-radius: 16px;
-    --background: linear-gradient(90deg, #B272BC 0%, #661B70 100%);
-    --color: #fff;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-radius: 16px;
+    background: #8C2D99 ;
+    color: #fff;
     font-weight: 700;
+    border: none;
+    cursor: pointer;
   }
-}
 
-
-
-.resultado-card,
-.error-card {
-  margin: 1.5rem;
-  --ion-background: #ffffff;
-  box-shadow: 0 4px 16px rgba(102, 27, 112, 0.05);
-}
-
-.error-card {
-  border: 2px solid #e74c3c;
+  .accion-btn[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 }

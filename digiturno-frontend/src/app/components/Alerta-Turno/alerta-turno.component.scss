@@ -1,13 +1,14 @@
 :host {
   --background: #fff;
+  border-radius: 20px;
 }
 
 ::ng-deep ion-content {
-  --background: #fff !important; // ← fuerza fondo blanco
+  --background: #fff !important;
   background-color: #fff !important;
   color: #000;
+  border-radius: 20px;
 }
-
 .alerta-turno {
   display: flex;
   flex-direction: column;

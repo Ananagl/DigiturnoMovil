@@ -14,7 +14,7 @@ import { AlertaTurnoComponent } from '../components/alerta-turno/alerta-turno.co
   templateUrl: './confirmar-turno.html',
   styleUrls: ['./confirmar-turno.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, BannerGlobalComponent]
+  imports: [CommonModule, IonicModule, BannerGlobalComponent, AlertaTurnoComponent]
 })
 export class ConfirmarTurnoComponent implements OnInit {
   datos!: TurnoData;

@@ -1,49 +1,49 @@
 <app-banner-global></app-banner-global>
-<ion-content class="ion-padding confirmar-container">
+
+<div class="nuevo-turno-container">
   <h2>Confirmar la información</h2>
 
-  <ion-grid class="resumen-grid">
-    <ion-row>
-      <ion-col size="6" class="col-vertical col-ajustada">
-        <div class="item">
-          <ion-label><strong>Nombres</strong></ion-label>
-          <p>{{ datos.nombres }}</p>
-        </div>
-        <div class="item">
-          <ion-label><strong>Apellidos</strong></ion-label>
-          <p>{{ datos.apellidos }}</p>
-        </div>
-        <div class="item">
-          <ion-label><strong>Tipo de turno</strong></ion-label>
-          <p>{{ tipoNombre }}</p>
-        </div>
-      </ion-col>
-      <ion-col size="6" class="col-vertical">
-        <div class="item">
-          <ion-label><strong>Tipo de documento</strong></ion-label>
-          <p>{{ datos.tipo_documento }}</p>
-        </div>
-        <div class="item">
-          <ion-label><strong>Número de documento</strong></ion-label>
-          <p>{{ datos.numero_documento }}</p>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <form class="nuevo-turno-form">
+    <div class="form-group">
+      <label><strong>Nombres</strong></label>
+      <p class="form-control">{{ datos.nombres }}</p>
+    </div>
+
+    <div class="form-group">
+      <label><strong>Apellidos</strong></label>
+      <p class="form-control">{{ datos.apellidos }}</p>
+    </div>
+
+    <div class="form-group">
+      <label><strong>Tipo de turno</strong></label>
+      <p class="form-control">{{ tipoNombre }}</p>
+    </div>
+
+    <div class="form-group">
+      <label><strong>Tipo de documento</strong></label>
+      <p class="form-control">{{ datos.tipo_documento }}</p>
+    </div>
+
+    <div class="form-group">
+      <label><strong>Número de documento</strong></label>
+      <p class="form-control">{{ datos.numero_documento }}</p>
+    </div>
+  </form>
 
   <div class="botones-acciones">
-    <ion-button
+    <button
       class="accion-btn"
       (click)="confirmar()"
       [disabled]="cargando"
     >
       {{ cargando ? 'Guardando…' : 'Confirmar turno' }}
-    </ion-button>
-    <ion-button
+    </button>
+
+    <button
       class="accion-btn"
       (click)="cerrar()"
     >
       Cancelar
-    </ion-button>
+    </button>
   </div>
-</ion-content>
+</div>
