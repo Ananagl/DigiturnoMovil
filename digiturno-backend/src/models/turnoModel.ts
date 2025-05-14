@@ -1,20 +1,60 @@
 import db from '../config/db';
-import { ResultSetHeader, PoolConnection } from 'mysql2/promise';
+import { RowDataPacket, ResultSetHeader, PoolConnection } from 'mysql2/promise';
 import { validarCampos, ValidationError } from '../utils/validations';
-import { ContadorModel } from './contadorModel';
+import { JornadaModel } from './jornadaModel';
 import {
   TurnoData,
-  Turno,
+  Turno as TurnoType,
   TurnoExistente,
   EstadisticaTurno,
   TurnoListado
 } from '../types/turno';
 
+interface TurnoDB extends RowDataPacket {
+  id: number;
+  nombres: string;
+  apellidos: string;
+  tipo_documento: string;
+  numero_documento: string;
+  tipo_turno_id: number;
+  subtipo_turno_id: number | null;
+  jornada_id: number;
+  fecha_creacion: Date;
+  estado: 'PENDIENTE' | 'LLAMADO' | 'ATENDIDO' | 'CANCELADO';
+  numero_turno: number;
+  codigo_turno: string;
+  tipo_turno?: string;
+  subtipo_turno?: string | null;
+}
+
+interface EstadisticaTurnoDB extends RowDataPacket {
+  tipo_turno: string;
+  cantidad: number;
+}
 
 export class TurnoModel {
+  private static async obtenerSiguienteNumeroTurno(tipoTurnoId: number, jornadaId: number): Promise<number> {
+    const [rows] = await db.query<RowDataPacket[]>(
+      'SELECT COUNT(*) as total FROM turnos WHERE tipo_turno_id = ? AND jornada_id = ?',
+      [tipoTurnoId, jornadaId]
+    );
+    return (rows[0].total as number) + 1;
+  }
+
+  private static generarCodigoTurno(tipoTurnoId: number, numeroTurno: number): string {
+    let prefijo = 'G';
+    switch (tipoTurnoId) {
+      case 1: prefijo = 'G'; break;
+      case 2: prefijo = 'P'; break;
+      case 3: prefijo = 'O'; break;
+      default: prefijo = 'G';
+    }
+    return `${prefijo}-${String(numeroTurno).padStart(3, '0')}`;
+  }
+
   static async crear(turnoData: TurnoData): Promise<{ id: number; message: string }> {
+    // Validar campos
     try {
-      // Validar campos de entrada
       validarCampos.nombres(turnoData.nombres);
       validarCampos.apellidos(turnoData.apellidos);
       validarCampos.documento(turnoData.numero_documento);
@@ -23,20 +63,28 @@ export class TurnoModel {
       throw new Error('Error en la validación de datos');
     }
 
-    const conn: PoolConnection = await db.getConnection();
+    // Obtener jornada activa o crear una nueva
+    let jornada = await JornadaModel.obtenerJornadaActiva();
+    if (!jornada) {
+      jornada = await JornadaModel.crearJornada();
+    }
 
+    // Obtener una conexión del pool
+    const conn = await db.getConnection();
     try {
       await conn.beginTransaction();
 
-      // Generar código y número de turno
-      const codigoTurno = await ContadorModel.generarCodigoTurno(turnoData.tipo_turno_id, conn);
-      const numeroTurno = parseInt(codigoTurno.split('-')[1]);
+      // Obtener el siguiente número de turno para este tipo en la jornada actual
+      const numeroTurno = await this.obtenerSiguienteNumeroTurno(turnoData.tipo_turno_id, jornada.id);
+      const codigoTurno = this.generarCodigoTurno(turnoData.tipo_turno_id, numeroTurno);
 
-      // Insertar en la base de datos
+      // Insertar el turno
       const [result] = await conn.query<ResultSetHeader>(
         `INSERT INTO turnos 
-         (nombres, apellidos, tipo_documento, numero_documento, tipo_turno_id, subtipo_turno_id, numero_turno, codigo_turno) 
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+          (nombres, apellidos, tipo_documento, numero_documento, 
+           tipo_turno_id, subtipo_turno_id, jornada_id, 
+           numero_turno, codigo_turno, estado) 
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'PENDIENTE')`,
         [
           turnoData.nombres,
           turnoData.apellidos,
@@ -44,61 +92,80 @@ export class TurnoModel {
           turnoData.numero_documento,
           turnoData.tipo_turno_id,
           turnoData.subtipo_turno_id || null,
+          jornada.id,
           numeroTurno,
           codigoTurno
         ]
       );
 
       await conn.commit();
-      return { id: result.insertId, message: 'Turno registrado correctamente' };
-
-    } catch (error) {
+      return { 
+        id: result.insertId, 
+        message: `Turno registrado correctamente. Código: ${codigoTurno}` 
+      };
+    } catch (err) {
       await conn.rollback();
-      throw error;
+      throw err;
     } finally {
       conn.release();
     }
   }
 
   static async verificarExistente(numeroDocumento: string): Promise<{ existe: boolean }> {
-    const [results] = await db.query<TurnoExistente[]>(
-      'SELECT COUNT(*) AS total FROM turnos WHERE numero_documento = ?',
+    const [rows] = await db.query<RowDataPacket[]>(
+      `SELECT COUNT(*) as total 
+       FROM turnos t
+       JOIN jornadas j ON t.jornada_id = j.id
+       WHERE t.numero_documento = ? AND j.estado = 'ACTIVA'`,
       [numeroDocumento]
     );
-    return { existe: results[0].total > 0 };
+    return { existe: (rows[0].total as number) > 0 };
   }
 
-  static async listarTurnosAsignados(): Promise<Turno[]> {
+  static async listarTurnosAsignados(): Promise<TurnoDB[]> {
+    const jornada = await JornadaModel.obtenerJornadaActiva();
+    if (!jornada) {
+      return [];
+    }
+    const turnos = await JornadaModel.obtenerTurnosPorJornada(jornada.id);
+    return turnos as TurnoDB[];
+  }
+
+  static async actualizarEstado(turnoId: number, nuevoEstado: 'LLAMADO' | 'ATENDIDO' | 'CANCELADO'): Promise<void> {
+    await db.query(
+      'UPDATE turnos SET estado = ? WHERE id = ?',
+      [nuevoEstado, turnoId]
+    );
+  }
+
+  static async obtenerEstadisticas(): Promise<EstadisticaTurnoDB[]> {
+    const jornada = await JornadaModel.obtenerJornadaActiva();
+    if (!jornada) {
+      return [];
+    }
+
     const query = `
       SELECT 
-        t.id,
-        t.nombres,
-        t.apellidos,
-        t.tipo_documento,
-        t.numero_documento,
         tt.nombre AS tipo_turno,
-        st.nombre AS subtipo_turno,
-        t.fecha_creacion,
-        t.estado,
-        t.numero_turno,
-        t.codigo_turno
+        COUNT(t.id) AS cantidad
       FROM turnos t
       JOIN tipos_turno tt ON t.tipo_turno_id = tt.id
-      LEFT JOIN subtipos_turno st ON t.subtipo_turno_id = st.id
-      ORDER BY t.fecha_creacion DESC
+      WHERE t.jornada_id = ?
+      GROUP BY tt.nombre
     `;
-    const [results] = await db.query<Turno[]>(query);
-    return results;
+
+    const [rows] = await db.query<EstadisticaTurnoDB[]>(query, [jornada.id]);
+    return rows;
   }
 
-  static async buscarPorDocumento(tipo: string, numero: string): Promise<Turno | null> {
+  static async buscarPorDocumento(tipo: string, numero: string): Promise<TurnoDB | null> {
     const query = `
       SELECT * FROM turnos
       WHERE tipo_documento = ? AND numero_documento = ?
       ORDER BY fecha_creacion DESC
       LIMIT 1
     `;
-    const [rows] = await db.query<Turno[]>(query, [tipo, numero]);
+    const [rows] = await db.query<TurnoDB[]>(query, [tipo, numero]);
     return rows.length > 0 ? rows[0] : null;
   }
 
