@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -8,16 +8,23 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule, IonicModule],
   templateUrl: './alerta-turno.component.html',
-  styleUrls: ['./alerta-turno.component.scss']
+  styleUrls: ['./alerta-turno.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AlertaTurnoComponent {
   @Input() success: boolean = true;
   @Input() message: string = '';
+  @Input() codigo_turno: string = '';
 
   get iconSrc(): string {
     return this.success
       ? '/assets/icon/aceptado.svg'
       : '/assets/icon/cancelado.svg';
+  }
+
+  get turnCode(): string {
+    const match = this.message.match(/Código: ([A-Z]-\d+)/);
+    return match ? match[1] : '';
   }
 
   constructor(
@@ -31,4 +38,5 @@ export class AlertaTurnoComponent {
       this.router.navigate(['/home']); 
     }, 200); 
   }
+
 }

@@ -7,7 +7,7 @@ import { TurnoApiService } from '../services/turno-api.service';
 import { TIPOS_TURNO, SUBTIPOS_TURNO } from '../interfaces/turno.interface';
 import { Router } from '@angular/router';  
 import { ModalController } from '@ionic/angular';
-import { AlertaTurnoComponent } from '../components/alerta-turno/alerta-turno.component';
+import { AlertaTurnoComponent } from '../components/Alerta-Turno/alerta-turno.component';
 
 @Component({
   selector: 'app-confirmar-turno',
@@ -65,13 +65,14 @@ export class ConfirmarTurnoComponent implements OnInit {
   private async presentResultAlert(success: boolean, message: string) {
     const modal = await this.modalCtrl.create({
       component: AlertaTurnoComponent,
-      cssClass: 'custom-modal',
+      cssClass: 'transparent-modal',
       componentProps: {
         success,
         message
       },
+      backdropDismiss: false
     });
-  
+    
     await modal.present();
   }
 }

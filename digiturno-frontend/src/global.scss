@@ -41,3 +41,13 @@ body, html {
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
+
+.transparent-modal {
+  --background: transparent !important;
+  --ion-background-color: transparent !important;
+  
+  &::part(content) {
+    background: transparent;
+    --box-shadow: none !important;
+  }
+}

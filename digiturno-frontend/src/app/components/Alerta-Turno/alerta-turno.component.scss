@@ -1,12 +1,5 @@
-:host {
-  --background: #fff;
-  border-radius: 20px;
-}
-
-::ng-deep ion-content {
-  --background: #fff !important;
-  background-color: #fff !important;
-  color: #000;
+body {
+  
   border-radius: 20px;
 }
 .alerta-turno {
@@ -15,9 +8,12 @@
   justify-content: space-between;
   align-items: center;
   text-align: center;
-  height: 100%;
+  height: 70%;
+  width: 100%;
   background-color: #fff;
-  color: #000;
+  border-radius: 20px;
+  overflow: hidden;
+  color: transparent;
   
 
   .alert-text {
@@ -31,8 +27,14 @@
     }
 
     p {
-      font-size: 1.8rem;
-      color: #333;
+      font-size: 2.2rem;
+      color: #858585;
+      border: none;
+      padding: 1.2rem 1.5rem;
+      margin: 0;
+      font-family: 'Open Sans';
+      font-weight: 400;
+      letter-spacing: 0.01em;
     }
   }
 
@@ -49,14 +51,20 @@
     }
   }
 
-  ion-button {
-    margin-bottom: 2rem;
-    min-width: 200px;
-    align-self: center; 
-    --background: linear-gradient(90deg, #B272BC 0%, #661B70 100%);
-    --color: #fff;
-    font-weight: 700;
+  .boton-alerta {
+    --background: transparent;
+    --color: #661B70;
+    font-weight: 600;
     font-size: 1.6rem;
-    border-radius: 16px;
+    box-shadow: none;
+    --border-width: 0;
+    --box-shadow: none;
+    --border-color: transparent;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    margin-left: auto;
+    padding-bottom: 2rem;
+    padding-right: 0.5rem;
   }
 }
