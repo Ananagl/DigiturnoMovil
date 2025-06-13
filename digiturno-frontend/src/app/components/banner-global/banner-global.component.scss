@@ -1,28 +1,39 @@
-
-
-.banner-global {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  background: #661B70;
-  padding: 0.5rem 1rem;
+:host {
+  display: block;
   width: 100vw;
-  height: auto;
-  max-height: 120px;
-}   
-
-.logo-usco {
-  height: 70px;
-  margin-left: 2rem;
-  padding: 0.2rem 0.5rem;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding-top: var(--ion-safe-area-top, 0px);
+  background: #7b2683;
+  z-index: 10;
+  max-height: 150px;
 }
 
-.Text-usco {
-    height: 70px;
-    margin-right: 2rem;
-    padding: 0.2rem 0.5rem;
+.banner-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 40px;
+  height: 56px;
+  padding: 0 8px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 600px) {
+  .banner-content {
+    min-height: 48px;
+    height: 6vw;
+    padding: 0 20px;
   }
-  
+}
+
+.logo-usco {
+  height: 5vw;
+  min-height: 24px;
+  margin-left: 1vw;
+  padding: 0.1rem 0.3rem;
+}
 
 .banner-texts {
   display: flex;
@@ -34,25 +45,42 @@
 
 .titulo {
   color: #fff;
-  font-size: 1.5rem;
+  font-size: clamp(0.8rem, 2vw, 1.3rem);
   font-weight: 900;
   margin-left: auto;
   letter-spacing: 0.05em;
   text-align: right;
   font-weight: bold;
+  word-break: break-word;
+}
+
+.Text-usco {
+  height: 4.5vw;
+  min-height: 20px;
+  margin-right: 1vw;
+  padding: 0.1rem 0.3rem;
 }
 
 @media (max-width: 600px) {
-  .banner-global {
+  .banner-content {
     flex-direction: column;
     align-items: flex-start;
-    padding: 0.5rem;
-    min-height: 100px;
+    padding: 0.2rem 0.5rem;
+    min-height: 48px;
+    height: auto;
   }
   .logo-usco {
-    height: 50px;
-    margin-bottom: 0.5rem;
+    height: 10vw;
+    min-height: 18px;
+    max-height: 28px;
+    margin-bottom: 0.2rem;
     margin-right: 0;
+  }
+  .Text-usco {
+    height: 10vw;
+    min-height: 16px;
+    max-height: 24px;
+    margin-right: 0.2rem;
   }
   .banner-texts {
     flex-direction: column;
@@ -61,10 +89,7 @@
   }
   .titulo {
     margin: 0;
-    font-size: 1rem;
+    font-size: clamp(0.7rem, 2.5vw, 1rem);
     text-align: left;
-  }
-  .titulo {
-    font-size: 1.1rem;
   }
 }

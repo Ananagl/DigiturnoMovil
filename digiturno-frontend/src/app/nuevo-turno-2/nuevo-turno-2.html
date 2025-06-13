@@ -1,29 +1,76 @@
 <app-banner-global></app-banner-global>
-<div class="nuevo-turno-container">
-  <form class="nuevo-turno-form">
-    <div class="form-group">
-      <label for="nombres"><b>ingrese su(s) nombre(s)</b></label>
-      <input id="nombres" class="form-control" type="text" placeholder="Ingrese su(s) nombres(s)" maxlength="50"
-        name="nombres" [(ngModel)]="nombres" (input)="onInputNombre($event)" autocomplete="off"/>
+<ion-content class="ion-padding">
+  <div class="nuevo-turno-container">
+    <form class="nuevo-turno-form">
+      <div class="form-group">
+        <ion-label><b>Ingrese su(s) nombre(s)</b></ion-label>
+        <ion-input
+          id="nombres"
+          class="form-control"
+          type="text"
+          placeholder="Ingrese su(s) nombres(s)"
+          maxlength="50"
+          name="nombres"
+          [(ngModel)]="nombres"
+          (ionInput)="onInputNombre($event)"
+          (ionFocus)="setActiveInput('nombres')"
+          readonly
+          autocomplete="off"
+        ></ion-input>
+      </div>
+      <div class="form-group">
+        <ion-label><b>Ingrese su(s) apellido(s)</b></ion-label>
+        <ion-input
+          id="apellidos"
+          class="form-control"
+          type="text"
+          placeholder="Ingrese su(s) apellido(s)"
+          maxlength="50"
+          name="apellidos"
+          [(ngModel)]="apellidos"
+          (ionInput)="onInputApellido($event)"
+          (ionFocus)="setActiveInput('apellidos')"
+          readonly
+          autocomplete="off"
+        ></ion-input>
+      </div>
+    </form>
+
+    <!-- Letter Keypad -->
+    <div class="numeric-keypad">
+      <div class="keypad-row" *ngFor="let row of keypadRows">
+        <ion-button 
+          *ngFor="let key of row" 
+          class="keypad-button"
+          [attr.data-key]="key"
+          (click)="onKeypadPress(key)"
+          expand="block"
+        >
+          {{key}}
+        </ion-button>
+      </div>
+      <div class="keypad-row">
+        <ion-button class="keypad-button clear" (click)="clearInput()" expand="block">
+          C
+        </ion-button>
+        <ion-button class="keypad-button delete" (click)="deleteLastDigit()" expand="block">
+          ←
+        </ion-button>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="apellidos"><b>ingrese su(s) apellido(s)</b></label>
-      <input id="apellidos" class="form-control" type="text" placeholder="Ingrese su(s) apellido(s)" maxlength="50"
-        name="apellidos" [(ngModel)]="apellidos" (input)="onInputApellido($event)" autocomplete="off"/>
-    </div>
-  </form>
-</div>
+  </div>
+</ion-content>
 
 <app-arrow-nav
- direction="left" 
- route="/nuevo-turno" 
- icon="assets/icon/flechaizquierda.png">
+  direction="left" 
+  route="/nuevo-turno" 
+  icon="assets/icon/flechaizquierda.png">
 </app-arrow-nav>
 
 <app-arrow-nav
-direction="right" 
-route="/seleccion-turno" 
-icon="assets/icon/flechaderecha.png"
-(beforeNavigate)="guardarNombresApellidos()"
-[disabled]="isNextDisabled()">
+  direction="right" 
+  route="/seleccion-turno" 
+  icon="assets/icon/flechaderecha.png"
+  (beforeNavigate)="guardarNombresApellidos()"
+  [disabled]="isNextDisabled()">
 </app-arrow-nav>

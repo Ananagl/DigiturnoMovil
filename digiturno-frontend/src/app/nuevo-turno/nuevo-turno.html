@@ -1,31 +1,64 @@
 <app-banner-global></app-banner-global>
-<div class="nuevo-turno-container">
-  <form class="nuevo-turno-form">
-    <div class="form-group">
-      <label for="tipo-id"><b>Tipo de identificación</b></label>
-      <select id="tipo-id" class="form-control" [(ngModel)]="tipoId" name="tipoId">
-        <option value="">Seleccionar</option>
-        <option value="CC">Cédula de ciudadanía</option>
-        <option value="TI">Tarjeta de identidad</option>
-        <option value="CE">Cédula de extranjería</option>
-      </select>
+<ion-content class="ion-padding">
+  <div class="nuevo-turno-container">
+    <form class="nuevo-turno-form">
+      <div class="form-group">
+        <ion-label><b>Tipo de identificación</b></ion-label>
+        <ion-select
+          [(ngModel)]="tipoId"
+          name="tipoId"
+          interface="popover"
+          class="form-control"
+        >
+          <ion-select-option value="">Seleccionar</ion-select-option>
+          <ion-select-option value="CC">Cédula de ciudadanía</ion-select-option>
+          <ion-select-option value="TI">Tarjeta de identidad</ion-select-option>
+          <ion-select-option value="CE">Cédula de extranjería</ion-select-option>
+        </ion-select>
+      </div>
+      <div class="form-group">
+        <ion-label><b>Numero de documento</b></ion-label>
+        <ion-input
+          id="numero-doc"
+          class="form-control"
+          type="text"
+          placeholder="Ingresar numero"
+          maxlength="15"
+          autocomplete="off"
+          readonly
+          (ionInput)="onInputNumber($event)"
+          [(ngModel)]="numeroDoc"
+          name="numeroDoc"
+        ></ion-input>
+      </div>
+    </form>
+
+    <!-- Numeric Keypad -->
+    <div class="numeric-keypad">
+      <div class="keypad-row" *ngFor="let row of keypadRows">
+        <ion-button 
+          *ngFor="let key of row" 
+          class="keypad-button"
+          (click)="onKeypadPress(key)"
+          expand="block"
+        >
+          {{key}}
+        </ion-button>
+      </div>
+      <div class="keypad-row">
+        <ion-button class="keypad-button clear" (click)="clearInput()" expand="block">
+          C
+        </ion-button>
+        <ion-button class="keypad-button" (click)="onKeypadPress('0')" expand="block">
+          0
+        </ion-button>
+        <ion-button class="keypad-button delete" (click)="deleteLastDigit()" expand="block">
+          ←
+        </ion-button>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="numero-doc"><b>Numero de documento</b></label>
-      <input
-        id="numero-doc"
-        class="form-control"
-        type="text"
-        placeholder="Ingresar numero"
-        maxlength="15"
-        autocomplete="off"
-        (input)="onInputNumber($event)"
-        [(ngModel)]="numeroDoc"
-        name="numeroDoc"
-      />
-    </div>
-  </form>
-</div>
+  </div>
+</ion-content>
 
 <app-arrow-nav
   direction="left"

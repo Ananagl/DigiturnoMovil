@@ -4,6 +4,8 @@ import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalo
 import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
+import { StatusBar, Style } from '@capacitor/status-bar';
+import { Capacitor } from '@capacitor/core';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -13,3 +15,10 @@ bootstrapApplication(AppComponent, {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
 });
+
+// Solo configurar StatusBar en plataformas nativas (Android/iOS)
+if (Capacitor.isNativePlatform()) {
+  // Configuración del StatusBar para dispositivos móviles
+  StatusBar.setBackgroundColor({ color: '#8d4897' });
+  StatusBar.setStyle({ style: Style.Light });
+}

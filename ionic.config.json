@@ -1,0 +1,7 @@
+{
+  "name": "Digiturno-Movil",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

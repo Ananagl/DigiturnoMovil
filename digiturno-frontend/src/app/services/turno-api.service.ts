@@ -1,45 +1,80 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TurnoData } from './turno.service';
-import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
-interface CrearResponse {
-  id: number;
-  message: string;
-}
-
-interface ExisteResponse {
-  existe: boolean;
-}
 export interface TurnoListado {
   nombres: string;
   apellidos: string;
   tipo_turno: string;
-  fecha_creacion: string; // ISO string
+  fecha_creacion: string;
 }
 
-@Injectable({ providedIn: 'root' })
+export interface CrearResponse {
+  id: number;
+  message: string;
+}
+
+export interface ExisteResponse {
+  existe: boolean;
+}
+
+export interface PersonaResponse {
+  nombres: string;
+  apellidos: string;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
 export class TurnoApiService {
-  private base = 'http://localhost:3000/turnos';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
-  verificarExiste(documento: string): Observable<ExisteResponse> {
-    return this.http.get<ExisteResponse>(`${this.base}/turno-existe/${documento}`);
+  validarDocumento(tipo_documento: string, numero_documento: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/validar-documento`, {
+      tipo_documento,
+      numero_documento
+    });
   }
 
-  crear(turno: TurnoData): Observable<CrearResponse> {
-    return this.http.post<CrearResponse>(this.base, turno);
+  crear(turnoData: any): Observable<CrearResponse> {
+    // Mapear los campos para que coincidan con lo que espera el backend
+    const turnoMapeado = {
+      nombres: turnoData.nombres,
+      apellidos: turnoData.apellidos,
+      tipo_documento: turnoData.tipo_documento,
+      numero_documento: turnoData.numero_documento,
+      tipo_turno_id: turnoData.tipo_turno_id,
+      subtipo_turno_id: turnoData.subtipo_turno_id
+    };
+    return this.http.post<CrearResponse>(`${this.apiUrl}/turnos`, turnoMapeado);
   }
-  obtenerPersona(tipo: string, numero: string) {
-    return this.http.get<{ nombres: string; apellidos: string }>(
-      `${this.base}/datos/${tipo}/${numero}`
-    );
+
+  getTiposTurno(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/tipos-turno`);
   }
+
+  obtenerPersona(tipo: string, numero: string): Observable<PersonaResponse> {
+    // Añadir manejo de errores con catchError
+    return this.http.get<PersonaResponse>(`${this.apiUrl}/turnos/datos/${tipo}/${numero}`)
+      .pipe(
+        catchError(error => {
+          console.error('Error al obtener datos de persona:', error);
+          // Devolver un objeto vacío para que el usuario pueda ingresar los datos manualmente
+          return of({ nombres: '', apellidos: '' });
+        })
+      );
+  }
+
   listarAsignados(dias: number = 14): Observable<TurnoListado[]> {
-    return this.http.get<TurnoListado[]>(
-      `${this.base}/asignados?dias=${dias}`
-    );
+    return this.http.get<TurnoListado[]>(`${this.apiUrl}/turnos/asignados?dias=${dias}`);
+  }
+
+  verificarExiste(documento: string): Observable<ExisteResponse> {
+    return this.http.get<ExisteResponse>(`${this.apiUrl}/turnos/turno-existe/${documento}`);
   }
 }
 

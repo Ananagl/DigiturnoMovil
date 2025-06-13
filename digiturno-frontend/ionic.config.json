@@ -1,5 +1,7 @@
 {
   "name": "digiturno-frontend",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular-standalone"
 }

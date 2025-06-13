@@ -15,6 +15,7 @@ $font-family-primary: 'Open Sans', Arial, Helvetica, sans-serif;
 
 body, html {
   font-family: $font-family-primary;
+  --ion-safe-area-top: env(safe-area-inset-top, 0px);
 }
 
 /* Core CSS required for Ionic components to work properly */
@@ -50,4 +51,108 @@ body, html {
     background: transparent;
     --box-shadow: none !important;
   }
+}
+
+/* Responsive Utilities */
+.responsive-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Responsive Grid System */
+.responsive-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 576px) {
+  .responsive-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .responsive-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Responsive Typography */
+h1 {
+  font-size: 24px;
+  @media (min-width: 576px) {
+    font-size: 32px;
+  }
+  @media (min-width: 992px) {
+    font-size: 40px;
+  }
+}
+
+/* Responsive Spacing */
+.responsive-padding {
+  padding: 16px;
+  @media (min-width: 576px) {
+    padding: 24px;
+  }
+  @media (min-width: 992px) {
+    padding: 32px;
+  }
+}
+
+/* Responsive Images */
+.responsive-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Responsive Cards */
+ion-card {
+  margin: 8px;
+  @media (min-width: 576px) {
+    margin: 12px;
+  }
+  @media (min-width: 992px) {
+    margin: 16px;
+  }
+}
+
+/* Responsive Buttons */
+ion-button {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  @media (min-width: 576px) {
+    --padding-start: 24px;
+    --padding-end: 24px;
+  }
+}
+
+/* Responsive Forms */
+ion-item {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  @media (min-width: 576px) {
+    --padding-start: 24px;
+    --padding-end: 24px;
+  }
+}
+
+/* Responsive Lists */
+ion-list {
+  padding: 8px;
+  @media (min-width: 576px) {
+    padding: 16px;
+  }
+  @media (min-width: 992px) {
+    padding: 24px;
+  }
+}
+
+:host {
+  display: block;
+  padding-top: var(--ion-safe-area-top, 0px);
+  // ...otros estilos
 }
