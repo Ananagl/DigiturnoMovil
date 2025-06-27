@@ -175,7 +175,9 @@ export class TurnoModel {
         t.nombres,
         t.apellidos,
         tt.nombre AS tipo_turno,
-        t.fecha_creacion
+        t.fecha_creacion,
+        t.tipo_documento,
+        t.numero_documento
       FROM turnos t
       JOIN tipos_turno tt ON t.tipo_turno_id = tt.id
       WHERE t.fecha_creacion >= ?

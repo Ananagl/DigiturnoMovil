@@ -1,14 +1,133 @@
 <app-banner-global></app-banner-global> 
+
 <div class="lista-turno-container">
-    <h2>Lista de turnos</h2>
+  <h2>Lista de turnos</h2>
+  
+  <!-- Filtros por tipo de turno -->
+  <div class="filters-container">
+    <div class="filter-buttons">
+      <button 
+        class="filter-btn" 
+        [class.active]="filtroActivo === 'todos'"
+        (click)="aplicarFiltro('todos')">
+        Todos
+      </button>
+      <button 
+        class="filter-btn" 
+        [class.active]="filtroActivo === 'general'"
+        (click)="aplicarFiltro('general')">
+        General
+      </button>
+      <button 
+        class="filter-btn" 
+        [class.active]="filtroActivo === 'preferencial'"
+        (click)="aplicarFiltro('preferencial')">
+        Preferencial
+      </button>
+      <button 
+        class="filter-btn" 
+        [class.active]="filtroActivo === 'otros'"
+        (click)="aplicarFiltro('otros')">
+        Otros
+      </button>
+    </div>
+  </div>
+
+  <!-- Barra de búsqueda por documento -->
+  <div class="search-container">
+    <div class="search-box">
+      <ion-icon name="search-outline" class="search-icon"></ion-icon>
+      <input 
+        type="text" 
+        placeholder="Buscar por nombre, apellido, tipo de documento o número..."
+        [(ngModel)]="terminoBusqueda"
+        (input)="filtrarTurnos()"
+        class="search-input"
+      >
+      <ion-icon 
+        *ngIf="terminoBusqueda" 
+        name="close-circle-outline" 
+        class="clear-icon"
+        (click)="limpiarBusqueda()">
+      </ion-icon>
+    </div>
+    
+    <!-- Contador de resultados -->
+    <div class="search-results" *ngIf="terminoBusqueda || filtroActivo !== 'todos'">
+      <span>{{ turnosFiltrados.length }} de {{ turnos.length }} turnos</span>
+    </div>
   </div>
   
+  <!-- Estado de carga -->
+  <div *ngIf="cargando" class="loading-container">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Cargando turnos...</p>
+  </div>
+
+  <!-- Estado de error -->
+  <div *ngIf="error && !cargando" class="error-container">
+    <ion-icon name="alert-circle-outline" class="error-icon"></ion-icon>
+    <p class="error-message">{{ mensajeError }}</p>
+    <ion-button fill="outline" (click)="recargarTurnos()">
+      <ion-icon name="refresh-outline" slot="start"></ion-icon>
+      Reintentar
+    </ion-button>
+  </div>
+
+  <!-- Lista de turnos -->
+  <div *ngIf="!cargando && !error && turnosFiltrados.length > 0" class="turnos-list">
+    <div *ngFor="let turno of turnosFiltrados" class="turno-item">
+      <div class="turno-header">
+        <div class="turno-nombre">
+          <strong>{{ turno.nombres }} {{ turno.apellidos }}</strong>
+        </div>
+        <div class="turno-tipo">
+          <span class="tipo-badge">{{ turno.tipo_turno }}</span>
+        </div>
+      </div>
+      
+      <!-- Información del documento -->
+      <div class="turno-documento">
+        <ion-icon name="card-outline"></ion-icon>
+        <span class="documento-info">
+          <span class="tipo-doc">{{ turno.tipo_documento }}</span>
+          <span class="numero-doc">{{ turno.numero_documento }}</span>
+        </span>
+      </div>
+      
+      <div class="turno-fecha">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <span>{{ turno.fecha_creacion | date:'dd/MM/yyyy HH:mm' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mensaje cuando no hay turnos -->
+  <div *ngIf="!cargando && !error && turnos.length === 0" class="no-turnos">
+    <ion-icon name="document-outline" class="no-turnos-icon"></ion-icon>
+    <p>No hay turnos registrados</p>
+    <p class="subtitle">Los turnos aparecerán aquí cuando se registren</p>
+    <ion-button fill="outline" (click)="recargarTurnos()">
+      <ion-icon name="refresh-outline" slot="start"></ion-icon>
+      Actualizar
+    </ion-button>
+  </div>
+
+  <!-- Mensaje cuando no hay resultados de búsqueda -->
+  <div *ngIf="!cargando && !error && turnos.length > 0 && turnosFiltrados.length === 0 && (terminoBusqueda || filtroActivo !== 'todos')" class="no-results">
+    <ion-icon name="search-outline" class="no-results-icon"></ion-icon>
+    <p>No se encontraron resultados</p>
+    <p class="subtitle">Intenta con otros filtros o términos de búsqueda</p>
+    <ion-button fill="outline" (click)="limpiarFiltros()">
+      <ion-icon name="refresh-outline" slot="start"></ion-icon>
+      Limpiar filtros
+    </ion-button>
+  </div>
+</div>
+
 <app-arrow-nav
-direction="left"
-route="/home"
-icon="assets/icon/flechaizquierda.png"
-></app-arrow-nav>
-
-
- 
+  direction="left"
+  route="/home"
+  icon="assets/icon/flechaizquierda.png">
+</app-arrow-nav>
   

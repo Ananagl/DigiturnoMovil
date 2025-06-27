@@ -9,6 +9,8 @@ export interface TurnoListado {
   apellidos: string;
   tipo_turno: string;
   fecha_creacion: string;
+  tipo_documento: string;
+  numero_documento: string;
 }
 
 export interface CrearResponse {

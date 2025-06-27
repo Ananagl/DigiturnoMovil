@@ -1,18 +1,502 @@
 .lista-turno-container {
   width: 100%;
-  height: 90%;
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  height: 100vh;
+  
+  h2 {
+    margin: 0 0 20px 0;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+  }
+}
+
+// Filtros por tipo de turno
+.filters-container {
+  margin-bottom: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  position: sticky;
+  top: 0;
+  background: #f5f5f5;
+  padding: 10px 0;
+  z-index: 10;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filter-btn {
+  padding: 10px 16px;
+  border: 2px solid #7b2683;
+  background: white;
+  color: #7b2683;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 80px;
+  
+  &:hover {
+    background: #f3e5f5;
+    transform: translateY(-1px);
+  }
+  
+  &.active {
+    background: #7b2683;
+    color: white;
+    box-shadow: 0 2px 8px rgba(123, 38, 131, 0.3);
+  }
+}
+
+// Barra de búsqueda
+.search-container {
+  margin-bottom: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  position: sticky;
+  top: 80px;
+  background: #f5f5f5;
+  padding: 10px 0;
+  z-index: 9;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 0 16px;
+  transition: box-shadow 0.3s ease;
+  
+  &:focus-within {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .search-icon {
+    font-size: 1.2rem;
+    color: #666;
+    margin-right: 12px;
+  }
+  
+  .search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 16px 0;
+    font-size: 1rem;
+    background: transparent;
+    
+    &::placeholder {
+      color: #999;
+    }
+  }
+  
+  .clear-icon {
+    font-size: 1.2rem;
+    color: #999;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      color: #666;
+      background: #f0f0f0;
+    }
+  }
+}
+
+.search-results {
+  margin-top: 8px;
+  text-align: center;
+  
+  span {
+    font-size: 0.9rem;
+    color: #666;
+    background: rgba(123, 38, 131, 0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-block;
+  }
+}
+
+// Estado de carga
+.loading-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 80vh;
-  background: #fff;
-}
+  padding: 40px 20px;
+  min-height: 200px;
   
-  h2 {
-    margin: 1.5rem 0;
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 700;
-    color: #000;
+  ion-spinner {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 15px;
   }
+  
+  p {
+    color: #666;
+    font-size: 1rem;
+    margin: 0;
+  }
+}
+
+// Estado de error
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  min-height: 200px;
+  
+  .error-icon {
+    font-size: 3rem;
+    color: #dc3545;
+    margin-bottom: 15px;
+  }
+  
+  .error-message {
+    color: #dc3545;
+    font-size: 1rem;
+    margin: 0 0 20px 0;
+    max-width: 300px;
+  }
+  
+  ion-button {
+    --color: #dc3545;
+    --border-color: #dc3545;
+  }
+}
+
+// Lista de turnos
+.turnos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding-bottom: 100px; // Espacio para el scroll
+}
+
+.turno-item {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #7b2683;
+  
+  .turno-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    gap: 10px;
+    
+    .turno-nombre {
+      flex: 1;
+      
+      strong {
+        font-size: 1.1rem;
+        color: #333;
+        line-height: 1.3;
+      }
+    }
+    
+    .turno-tipo {
+      .tipo-badge {
+        background: #7b2683;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+    }
+  }
+  
+  .turno-documento {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    
+    ion-icon {
+      font-size: 1rem;
+      color: #666;
+    }
+    
+    .documento-info {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      
+      .tipo-doc {
+        background: #6c757d;
+        color: white;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+      
+      .numero-doc {
+        color: #495057;
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+    }
+  }
+  
+  .turno-fecha {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #666;
+    font-size: 0.9rem;
+    
+    ion-icon {
+      font-size: 1rem;
+      color: #999;
+    }
+  }
+}
+
+// Mensaje cuando no hay turnos
+.no-turnos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  min-height: 300px;
+  
+  .no-turnos-icon {
+    font-size: 4rem;
+    color: #ccc;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    margin: 0;
+    color: #666;
+    
+    &.subtitle {
+      font-size: 0.9rem;
+      margin-top: 8px;
+      color: #999;
+    }
+  }
+  
+  ion-button {
+    margin-top: 20px;
+    --color: #7b2683;
+    --border-color: #7b2683;
+  }
+}
+
+// Mensaje cuando no hay resultados de búsqueda
+.no-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  min-height: 300px;
+  
+  .no-results-icon {
+    font-size: 4rem;
+    color: #ffc107;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    margin: 0;
+    color: #666;
+    
+    &.subtitle {
+      font-size: 0.9rem;
+      margin-top: 8px;
+      color: #999;
+    }
+  }
+  
+  ion-button {
+    margin-top: 20px;
+    --color: #ffc107;
+    --border-color: #ffc107;
+  }
+}
+
+// Responsive para pantallas pequeñas
+@media (max-width: 480px) {
+  .lista-turno-container {
+    padding: 15px;
+    
+    h2 {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+    }
+  }
+  
+  .filters-container {
+    top: 0;
+    padding: 5px 0;
+  }
+  
+  .search-container {
+    top: 70px;
+    padding: 5px 0;
+  }
+  
+  .filter-buttons {
+    gap: 6px;
+    
+    .filter-btn {
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      min-width: 70px;
+    }
+  }
+  
+  .search-box {
+    padding: 0 12px;
+    
+    .search-input {
+      padding: 14px 0;
+      font-size: 0.95rem;
+    }
+    
+    .search-icon,
+    .clear-icon {
+      font-size: 1.1rem;
+    }
+  }
+  
+  .turno-item {
+    padding: 14px;
+    
+    .turno-header {
+      flex-direction: column;
+      gap: 8px;
+      
+      .turno-tipo {
+        align-self: flex-start;
+      }
+    }
+    
+    .turno-documento {
+      padding: 6px 10px;
+      
+      .documento-info {
+        gap: 6px;
+        
+        .tipo-doc {
+          font-size: 0.7rem;
+          padding: 1px 4px;
+        }
+        
+        .numero-doc {
+          font-size: 0.85rem;
+        }
+      }
+    }
+  }
+  
+  .no-turnos,
+  .no-results {
+    padding: 40px 15px;
+    min-height: 250px;
+    
+    .no-turnos-icon,
+    .no-results-icon {
+      font-size: 3rem;
+    }
+  }
+  
+  .error-container {
+    padding: 30px 15px;
+    min-height: 200px;
+    
+    .error-icon {
+      font-size: 2.5rem;
+    }
+  }
+  
+  .turnos-list {
+    padding-bottom: 80px;
+  }
+}
+
+// Animaciones
+.turno-item {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.filter-btn {
+  animation: fadeIn 0.3s ease;
+}
+
+.search-box {
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Estados de carga con animación
+.loading-container ion-spinner {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
