@@ -41,15 +41,21 @@ export class ConfirmarTurnoComponent implements OnInit {
 
   async confirmar() {
     this.cargando = true;
-    this.error   = null;
-
+    this.error = null;
+    
+    // Log para debug
+    console.log('🔍 Intentando enviar turno a:', this.turnoApi['apiUrl']);
+    console.log('🔍 Datos del turno:', this.datos);
+    
     this.turnoApi.crear(this.datos).subscribe({
       next: async (res) => {
+        console.log('✅ Respuesta exitosa:', res);
         this.cargando = false;
         const msg = `ID: ${res.id}<br>${res.message}`;
         await this.presentResultAlert(true, msg);
       },
       error: async (err) => {
+        console.log('❌ Error al enviar turno:', err);
         this.cargando = false;
         const errMsg = err.error?.error || err.message || 'Error al guardar turno';
         await this.presentResultAlert(false, errMsg);

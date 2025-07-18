@@ -1,5 +1,8 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "Digiturno-Movil",
-  "webDir": "www"
+  "appId": "com.tuempresa.tuapp",
+  "appName": "Digiturno",
+  "webDir": "www",
+  "server": {
+    "cleartext": true
+  }
 }
