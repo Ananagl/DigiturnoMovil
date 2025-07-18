@@ -65,7 +65,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 // Iniciar servidor
-const PORT = process.env.PORT || 22;
+const PORT = process.env.PORT || 3004;
 const HOST = process.env.HOST || '0.0.0.0';
 
 app.listen(Number(PORT), HOST, () => {
