@@ -13,13 +13,7 @@ const app = express();
 // Configuración de CORS
 app.use(cors({
     origin: [
-        'http://192.168.1.12:8100', 
-        'http://localhost:8100', 
-        'http://localhost:4200', 
-        'http://localhost:22',
-        'http://31.97.136.77:8100',
-        'http://31.97.136.77:4200',
-        'http://31.97.136.77:22',
+        'http://31.97.136.77:3004',
         'capacitor://localhost',
         'ionic://localhost'
     ],
