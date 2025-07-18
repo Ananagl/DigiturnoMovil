@@ -14,12 +14,8 @@ const app = express();
 app.use(cors({
     origin: [
         'http://31.97.136.77:3004',
-        'http://31.97.136.77',
         'capacitor://localhost',
-        'ionic://localhost',
-        'http://localhost',
-        'http://localhost:8100',
-        'http://localhost:4200',
+        'ionic://localhost'
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
