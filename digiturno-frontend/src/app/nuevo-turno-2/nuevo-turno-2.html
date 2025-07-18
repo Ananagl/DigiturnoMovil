@@ -4,7 +4,7 @@
     <form class="nuevo-turno-form">
       <div class="form-group">
         <ion-label><b>Ingrese su(s) nombre(s)</b></ion-label>
-        <ion-input
+        <input
           id="nombres"
           class="form-control"
           type="text"
@@ -12,15 +12,15 @@
           maxlength="50"
           name="nombres"
           [(ngModel)]="nombres"
-          (ionInput)="onInputNombre($event)"
-          (ionFocus)="setActiveInput('nombres')"
+          (input)="onInputNombre($event)"
+          (focus)="setActiveInput('nombres')"
           readonly
           autocomplete="off"
-        ></ion-input>
+        />
       </div>
       <div class="form-group">
         <ion-label><b>Ingrese su(s) apellido(s)</b></ion-label>
-        <ion-input
+        <input
           id="apellidos"
           class="form-control"
           type="text"
@@ -28,11 +28,11 @@
           maxlength="50"
           name="apellidos"
           [(ngModel)]="apellidos"
-          (ionInput)="onInputApellido($event)"
-          (ionFocus)="setActiveInput('apellidos')"
+          (input)="onInputApellido($event)"
+          (focus)="setActiveInput('apellidos')"
           readonly
           autocomplete="off"
-        ></ion-input>
+        />
       </div>
     </form>
 

@@ -16,8 +16,8 @@ import { CommonModule } from '@angular/common';
     FormsModule, 
     BannerGlobalComponent, 
     ArrowNavComponent,
-    IonicModule,
-    CommonModule
+    CommonModule,
+    IonicModule, // ¡Esto es suficiente!
   ], 
 })
 export class NuevoTurnoComponent {

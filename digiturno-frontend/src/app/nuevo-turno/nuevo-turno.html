@@ -4,21 +4,16 @@
     <form class="nuevo-turno-form">
       <div class="form-group">
         <ion-label><b>Tipo de identificación</b></ion-label>
-        <ion-select
-          [(ngModel)]="tipoId"
-          name="tipoId"
-          interface="popover"
-          class="form-control"
-        >
-          <ion-select-option value="">Seleccionar</ion-select-option>
-          <ion-select-option value="CC">Cédula de ciudadanía</ion-select-option>
-          <ion-select-option value="TI">Tarjeta de identidad</ion-select-option>
-          <ion-select-option value="CE">Cédula de extranjería</ion-select-option>
-        </ion-select>
+        <select [(ngModel)]="tipoId" name="tipoId" class="form-control">
+          <option value="">Seleccionar</option>
+          <option value="CC">Cédula de ciudadanía</option>
+          <option value="TI">Tarjeta de identidad</option>
+          <option value="CE">Cédula de extranjería</option>
+        </select>
       </div>
       <div class="form-group">
         <ion-label><b>Numero de documento</b></ion-label>
-        <ion-input
+        <input
           id="numero-doc"
           class="form-control"
           type="text"
@@ -26,10 +21,10 @@
           maxlength="15"
           autocomplete="off"
           readonly
-          (ionInput)="onInputNumber($event)"
+          (input)="onInputNumber($event)"
           [(ngModel)]="numeroDoc"
           name="numeroDoc"
-        ></ion-input>
+        />
       </div>
     </form>
 

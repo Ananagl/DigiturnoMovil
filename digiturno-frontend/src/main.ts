@@ -1,11 +1,12 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } from '@angular/router';
-import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
-import { provideHttpClient } from '@angular/common/http';
-import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
-import { StatusBar, Style } from '@capacitor/status-bar';
-import { Capacitor } from '@capacitor/core';
+import { provideHttpClient } from '@angular/common/http';
+import { provideIonicAngular } from '@ionic/angular/standalone';
+import { provideRouter, withPreloading, PreloadAllModules } from '@angular/router';
+import { routes } from './app/app.routes';
+import { RouteReuseStrategy } from '@angular/router';
+import { IonicRouteStrategy } from '@ionic/angular';
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -16,9 +17,4 @@ bootstrapApplication(AppComponent, {
   ],
 });
 
-// Solo configurar StatusBar en plataformas nativas (Android/iOS)
-if (Capacitor.isNativePlatform()) {
-  // Configuración del StatusBar para dispositivos móviles
-  StatusBar.setBackgroundColor({ color: '#8d4897' });
-  StatusBar.setStyle({ style: Style.Light });
-}
+defineCustomElements(window);
