@@ -14,8 +14,12 @@ const app = express();
 app.use(cors({
     origin: [
         'http://31.97.136.77:3004',
+        'http://31.97.136.77',
         'capacitor://localhost',
-        'ionic://localhost'
+        'ionic://localhost',
+        'http://localhost',
+        'http://localhost:8100',
+        'http://localhost:4200',
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
@@ -65,7 +69,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 // Iniciar servidor
-const PORT = process.env.PORT || 22;
+const PORT = process.env.PORT || 3004;
 const HOST = process.env.HOST || '0.0.0.0';
 
 app.listen(Number(PORT), HOST, () => {

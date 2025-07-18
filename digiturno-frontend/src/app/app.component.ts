@@ -17,22 +17,33 @@ export class AppComponent implements OnInit {
   constructor(private connectionService: ConnectionService) {}
 
   ngOnInit() {
-    this.checkServerConnection();
+    // Forzar que la pantalla de carga se muestre por al menos 2 segundos
+    setTimeout(() => {
+      this.checkServerConnection();
+    }, 2000);
   }
 
   checkServerConnection() {
     this.isCheckingConnection = true;
     this.connectionError = false;
+    this.isServerAvailable = false;
     
-    this.connectionService.checkServerConnection(10000).subscribe({
+    console.log('🔍 Verificando conexión al servidor...');
+    
+    this.connectionService.checkServerConnection(8000).subscribe({
       next: (isAvailable) => {
+        console.log('✅ Resultado de verificación:', isAvailable);
         this.isServerAvailable = isAvailable;
         this.isCheckingConnection = false;
         if (!isAvailable) {
           this.connectionError = true;
+          console.log('❌ Servidor no disponible');
+        } else {
+          console.log('✅ Servidor disponible');
         }
       },
-      error: () => {
+      error: (error) => {
+        console.error('❌ Error al verificar conexión:', error);
         this.isServerAvailable = false;
         this.isCheckingConnection = false;
         this.connectionError = true;
@@ -41,6 +52,7 @@ export class AppComponent implements OnInit {
   }
 
   retryConnection() {
+    console.log('🔄 Reintentando conexión...');
     this.checkServerConnection();
   }
 }

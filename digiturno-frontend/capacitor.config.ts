@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'digiturno-frontend',
   webDir: 'www',
   server: {
-    url: 'http://192.168.1.12:8100',
+    url: 'http://31.97.136.77:3004',
     cleartext: true
   }
 };

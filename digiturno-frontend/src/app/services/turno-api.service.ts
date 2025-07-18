@@ -35,12 +35,13 @@ export class TurnoApiService {
 
   constructor(private http: HttpClient) {}
 
-  validarDocumento(tipo_documento: string, numero_documento: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/validar-documento`, {
-      tipo_documento,
-      numero_documento
-    });
-  }
+  // Método comentado porque no se usa y causa error 404
+  // validarDocumento(tipo_documento: string, numero_documento: string): Observable<any> {
+  //   return this.http.post(`${this.apiUrl}/validar-documento`, {
+  //     tipo_documento,
+  //     numero_documento
+  //   });
+  // }
 
   crear(turnoData: any): Observable<CrearResponse> {
     // Mapear los campos para que coincidan con lo que espera el backend

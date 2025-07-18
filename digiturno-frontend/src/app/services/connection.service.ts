@@ -17,11 +17,23 @@ export class ConnectionService {
    * @param timeoutMs Tiempo máximo de espera en milisegundos (default: 5000ms)
    */
   checkServerConnection(timeoutMs: number = 5000): Observable<boolean> {
-    return this.http.get(`${this.apiUrl}/health`)
+    const healthUrl = `${this.apiUrl}/health`;
+    console.log('🌐 Intentando conectar a:', healthUrl);
+    
+    return this.http.get(healthUrl)
       .pipe(
         timeout(timeoutMs),
-        map(() => true),
-        catchError(() => of(false))
+        map((response) => {
+          console.log('✅ Respuesta del servidor:', response);
+          return true;
+        }),
+        catchError((error) => {
+          console.error('❌ Error de conexión:', error);
+          if (error.name === 'TimeoutError') {
+            console.error('⏰ Timeout después de', timeoutMs, 'ms');
+          }
+          return of(false);
+        })
       );
   }
 
