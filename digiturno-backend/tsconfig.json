@@ -2,6 +2,7 @@
   "compilerOptions": {
     /* OUTPUT */
     "outDir": "./dist",
+    "esModuleInterop": true,
     "rootDir": "./src",
 
     /* MODULE RESOLUTION */
