@@ -45,6 +45,29 @@ app.use(rateLimit({
     message: { error: 'Demasiadas solicitudes, intenta más tarde.' }
 }));
 
+// Ruta de prueba en la raíz para diagnosticar
+app.get('/', (req: Request, res: Response) => {
+    console.log('🔍 ACCESO A LA RAÍZ DETECTADO:');
+    console.log(`   Método: ${req.method}`);
+    console.log(`   Ruta: ${req.path}`);
+    console.log(`   URL completa: ${req.originalUrl}`);
+    console.log(`   Origen: ${req.get('origin')}`);
+    console.log(`   User-Agent: ${req.get('user-agent')}`);
+    console.log(`   Headers completos:`, req.headers);
+    
+    res.json({ 
+        message: 'Acceso a la raíz detectado',
+        timestamp: new Date().toISOString(),
+        details: {
+            method: req.method,
+            path: req.path,
+            fullUrl: req.originalUrl,
+            origin: req.get('origin'),
+            userAgent: req.get('user-agent')
+        }
+    });
+});
+
 // Rutas
 app.use('/turnos', turnosRoutes);
 app.use('/jornadas', jornadasRoutes);
@@ -95,6 +118,7 @@ app.listen(Number(PORT), HOST, () => {
     console.log(`🚀 Servidor corriendo en http://${HOST}:${PORT}`);
     console.log(`📊 Health check: http://${HOST}:${PORT}/health`);
     console.log(`🔧 Rutas disponibles:`);
+    console.log(`   - GET / (raíz)`);
     console.log(`   - GET /health`);
     console.log(`   - GET /turnos/tipos-turno`);
     console.log(`   - GET /turnos/asignados`);

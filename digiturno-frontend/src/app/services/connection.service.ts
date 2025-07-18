@@ -9,8 +9,20 @@ import { environment } from '../../environments/environment';
 })
 export class ConnectionService {
   private apiUrl = environment.apiUrl;
+  private logCallback?: (message: string) => void;
 
   constructor(private http: HttpClient) {}
+
+  setLogCallback(callback: (message: string) => void) {
+    this.logCallback = callback;
+  }
+
+  private log(message: string) {
+    if (this.logCallback) {
+      this.logCallback(message);
+    }
+    console.log(message);
+  }
 
   /**
    * Verifica si el servidor está disponible
@@ -18,39 +30,39 @@ export class ConnectionService {
    */
   checkServerConnection(timeoutMs: number = 5000): Observable<boolean> {
     const healthUrl = `${this.apiUrl}/health`;
-    console.log('🌐 Intentando conectar a:', healthUrl);
-    console.log('🔧 URL completa del API:', this.apiUrl);
-    console.log('⏰ Timeout configurado:', timeoutMs, 'ms');
+    this.log('🌐 Intentando conectar a: ' + healthUrl);
+    this.log('🔧 URL completa del API: ' + this.apiUrl);
+    this.log('⏰ Timeout configurado: ' + timeoutMs + 'ms');
     
     return this.http.get(healthUrl)
       .pipe(
         timeout(timeoutMs),
         map((response) => {
-          console.log('✅ Respuesta del servidor:', response);
-          console.log('✅ Conexión exitosa al servidor');
+          this.log('✅ Respuesta del servidor: ' + JSON.stringify(response));
+          this.log('✅ Conexión exitosa al servidor');
           return true;
         }),
         catchError((error) => {
-          console.error('❌ Error de conexión:', error);
-          console.error('🔍 Detalles del error:');
-          console.error('   - Status:', error.status);
-          console.error('   - StatusText:', error.statusText);
-          console.error('   - URL intentada:', healthUrl);
-          console.error('   - Mensaje:', error.message);
-          console.error('   - Error completo:', error);
+          this.log('❌ Error de conexión: ' + JSON.stringify(error));
+          this.log('🔍 Detalles del error:');
+          this.log('   - Status: ' + error.status);
+          this.log('   - StatusText: ' + error.statusText);
+          this.log('   - URL intentada: ' + healthUrl);
+          this.log('   - Mensaje: ' + error.message);
+          this.log('   - Error completo: ' + JSON.stringify(error));
           
           if (error.name === 'TimeoutError') {
-            console.error('⏰ Timeout después de', timeoutMs, 'ms');
+            this.log('⏰ Timeout después de ' + timeoutMs + 'ms');
           }
           
           if (error.status === 404) {
-            console.error('🚫 Error 404 - Ruta no encontrada');
-            console.error('   Verificar que el endpoint /health existe en el backend');
+            this.log('🚫 Error 404 - Ruta no encontrada');
+            this.log('   Verificar que el endpoint /health existe en el backend');
           }
           
           if (error.status === 0) {
-            console.error('🌐 Error de red - No se pudo conectar al servidor');
-            console.error('   Verificar que el servidor esté corriendo en:', this.apiUrl);
+            this.log('🌐 Error de red - No se pudo conectar al servidor');
+            this.log('   Verificar que el servidor esté corriendo en: ' + this.apiUrl);
           }
           
           return of(false);

@@ -21,6 +21,21 @@
           <h2>Error de conexión</h2>
           <p>No se pudo conectar al servidor. Verifica tu conexión a internet o contacta al administrador.</p>
         </ion-text>
+        
+        <!-- Logs de debug -->
+        <div class="debug-logs">
+          <h3>📋 Logs de Debug:</h3>
+          <div class="logs-container">
+            <div *ngFor="let log of debugLogs" class="log-entry">
+              {{ log }}
+            </div>
+          </div>
+          <ion-button size="small" fill="outline" (click)="clearLogs()">
+            <ion-icon name="trash-outline" slot="start"></ion-icon>
+            Limpiar Logs
+          </ion-button>
+        </div>
+        
         <ion-button expand="block" (click)="retryConnection()">
           Reintentar conexión
         </ion-button>

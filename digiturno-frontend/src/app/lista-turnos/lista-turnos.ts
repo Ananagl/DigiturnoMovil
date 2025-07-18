@@ -28,32 +28,73 @@ export class ListaTurnosComponent implements OnInit {
   terminoBusqueda = '';
   filtroActivo = 'todos';
 
-  constructor(private turnoApi: TurnoApiService) {}
+  constructor(private turnoApi: TurnoApiService) {
+    console.log('📋 ListaTurnosComponent inicializado');
+  }
 
   ngOnInit() {
-    this.cargarTurnos();
+    console.log('📋 ListaTurnosComponent ngOnInit ejecutado');
+    console.log('⚠️  ATENCIÓN: Este componente se inicializa automáticamente');
+    console.log('🔍 Verificando si debe cargar turnos...');
+    
+    // Solo cargar turnos si el componente está activo
+    setTimeout(() => {
+      console.log('📋 ListaTurnosComponent: Iniciando carga de turnos...');
+      this.cargarTurnos();
+    }, 1000);
   }
 
   cargarTurnos() {
+    console.log('📋 === INICIANDO CARGA DE TURNOS ===');
+    console.log('📊 Estado actual:', {
+      cargando: this.cargando,
+      error: this.error,
+      turnosCount: this.turnos.length
+    });
+    
     this.cargando = true;
     this.error = false;
     this.mensajeError = '';
     
     console.log('🔄 Cargando turnos...');
+    console.log('🌐 URL que se va a llamar: /turnos/asignados?dias=14');
     
     this.turnoApi.listarAsignados(14).subscribe({
       next: (data) => {
-        console.log('✅ Turnos cargados exitosamente:', data);
+        console.log('✅ === TURNOS CARGADOS EXITOSAMENTE ===');
+        console.log('📊 Datos recibidos:', data);
+        console.log('📊 Cantidad de turnos:', Array.isArray(data) ? data.length : 'No es array');
+        
         this.turnos = data as TurnoConDocumento[];
         this.turnosFiltrados = [...this.turnos];
         this.cargando = false;
+        
+        console.log('📊 Estado final:', {
+          cargando: this.cargando,
+          error: this.error,
+          turnosCount: this.turnos.length,
+          turnosFiltradosCount: this.turnosFiltrados.length
+        });
         console.log('📊 Turnos con documentos:', this.turnos);
       },
       error: (err) => {
-        console.error('❌ Error al cargar turnos:', err);
+        console.error('❌ === ERROR AL CARGAR TURNOS ===');
+        console.error('🔍 Error completo:', err);
+        console.error('📊 Estado anterior:', {
+          cargando: this.cargando,
+          error: this.error,
+          turnosCount: this.turnos.length
+        });
+        
         this.error = true;
         this.mensajeError = 'Error al cargar los turnos. Por favor, intenta de nuevo.';
         this.cargando = false;
+        
+        console.log('📊 Estado final después del error:', {
+          cargando: this.cargando,
+          error: this.error,
+          turnosCount: this.turnos.length
+        });
       }
     });
   }
@@ -132,6 +173,7 @@ export class ListaTurnosComponent implements OnInit {
 
   // Método para recargar los turnos
   recargarTurnos() {
+    console.log('🔄 Recargando turnos...');
     this.limpiarFiltros();
     this.cargarTurnos();
   }
