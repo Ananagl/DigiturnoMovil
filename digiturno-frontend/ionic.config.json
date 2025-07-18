@@ -1,7 +1,7 @@
 {
-  "name": "digiturno-frontend",
+  "name": "Digiturno-Movil",
   "integrations": {
     "capacitor": {}
   },
-  "type": "angular-standalone"
+  "type": "angular"
 }
