@@ -1,0 +1,46 @@
+.loading-screen,
+.error-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: var(--ion-color-light);
+}
+
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  padding: 2rem;
+}
+
+.loading-container ion-spinner {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1rem;
+}
+
+.loading-container h2,
+.error-container h2 {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.loading-container p,
+.error-container p {
+  margin-bottom: 2rem;
+  color: var(--ion-color-medium);
+  max-width: 300px;
+}
+
+.error-container ion-button {
+  margin-top: 1rem;
+  --padding-start: 2rem;
+  --padding-end: 2rem;
+}

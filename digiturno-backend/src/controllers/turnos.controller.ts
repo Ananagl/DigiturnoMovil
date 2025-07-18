@@ -3,6 +3,7 @@ import { TurnoModel } from '../models/turnoModel';
 import { TipoTurnoModel } from '../models/tipoTurnoModel';
 import { ValidationError } from '../utils/validations';
 import logger from '../utils/logger';
+import { validationResult } from 'express-validator';
 
 // Obtener tipos de turno
 export const obtenerTiposTurno = async (_req: Request, res: Response) => {
@@ -35,6 +36,12 @@ export const obtenerSubtiposPorTipo = async (req: Request, res: Response) => {
 
 // Registrar turno
 export const registrarTurno = async (req: Request, res: Response) => {
+  // Validar errores de express-validator
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    logger.warn('Errores de validación en registrarTurno:', errors.array());
+    return res.status(400).json({ error: true, errors: errors.array() });
+  }
   try {
     logger.info('Registrando nuevo turno:', req.body);
     const resultado = await TurnoModel.crear(req.body);

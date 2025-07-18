@@ -1,3 +1,32 @@
 <ion-app>
-  <router-outlet></router-outlet>
+  <!-- Pantalla de carga mientras se verifica la conexión -->
+  <div *ngIf="isCheckingConnection" class="loading-screen">
+    <ion-content class="ion-padding">
+      <div class="loading-container">
+        <ion-spinner name="crescent"></ion-spinner>
+        <ion-text color="medium">
+          <h2>Conectando al servidor...</h2>
+          <p>Verificando disponibilidad del sistema</p>
+        </ion-text>
+      </div>
+    </ion-content>
+  </div>
+
+  <!-- Pantalla de error si el servidor no está disponible -->
+  <div *ngIf="connectionError && !isCheckingConnection" class="error-screen">
+    <ion-content class="ion-padding">
+      <div class="error-container">
+        <ion-text color="danger">
+          <h2>Error de conexión</h2>
+          <p>No se pudo conectar al servidor. Verifica tu conexión a internet o contacta al administrador.</p>
+        </ion-text>
+        <ion-button expand="block" (click)="retryConnection()">
+          Reintentar conexión
+        </ion-button>
+      </div>
+    </ion-content>
+  </div>
+
+  <!-- Contenido normal de la app si el servidor está disponible -->
+  <router-outlet *ngIf="isServerAvailable && !isCheckingConnection"></router-outlet>
 </ion-app>
